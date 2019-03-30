@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.App", "SensorFusion.App\SensorFusion.App.csproj", "{B4C8C630-E49A-48F7-AB9F-856E9B7C4818}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.Web.App", "SensorFusion.Web.App\SensorFusion.Web.App.csproj", "{B4C8C630-E49A-48F7-AB9F-856E9B7C4818}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBus", "MessageBus", "{E516E788-B16C-4ED7-8893-77C8C6D81FF3}"
 EndProject
