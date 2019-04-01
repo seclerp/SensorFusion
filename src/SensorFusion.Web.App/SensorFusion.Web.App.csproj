@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
@@ -17,13 +18,21 @@
         <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
     </ItemGroup>
 
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
+        <Content Include="ClientApp\public\global.css" />
+        <Content Include="ClientApp\src\components\AppIcon.js" />
+        <Content Include="ClientApp\src\components\AppMenu.js" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ClientApp\scss" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
