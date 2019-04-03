@@ -27,6 +27,7 @@
         <Content Include="ClientApp\public\global.css" />
         <Content Include="ClientApp\src\components\AppIcon.js" />
         <Content Include="ClientApp\src\components\AppMenu.js" />
+        <Content Include="ClientApp\src\themes\Cyan.js" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>

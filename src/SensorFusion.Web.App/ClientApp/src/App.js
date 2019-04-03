@@ -5,12 +5,10 @@ import {Home} from './components/Home';
 import {FetchData} from './components/FetchData';
 import {Counter} from './components/Counter';
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {withStyles} from "@material-ui/styles";
-
-const theme = createMuiTheme();
+import theme from './themes/Cyan'
 
 const styles = theme => ({
   loading: {
