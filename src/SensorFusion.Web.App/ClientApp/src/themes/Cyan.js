@@ -5,6 +5,7 @@ export default createMuiTheme({
     palette: {
         primary: { main: cyan[600] },
         secondary: { main: cyan[500] },
+        type: "dark",
     },
     typography: { useNextVariants: true },
 });
