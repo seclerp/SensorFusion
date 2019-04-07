@@ -8,7 +8,7 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {withStyles} from "@material-ui/styles";
-import theme from './themes/Cyan'
+//import theme from './themes/Cyan'
 
 const styles = theme => ({
   loading: {
@@ -39,13 +39,13 @@ class App extends Component {
   );
 
   renderApp = () => (
-    <MuiThemeProvider theme={theme}>
+    //<MuiThemeProvider theme={theme}>*/
       <Layout menu={this.state.staticdata.menu}>
         <Route exact path='/' component={Home}/>
         <Route path='/counter' component={Counter}/>
         <Route path='/fetch-data' component={FetchData}/>
       </Layout>
-    </MuiThemeProvider>
+    // </MuiThemeProvider>
   );
 
   render = () =>

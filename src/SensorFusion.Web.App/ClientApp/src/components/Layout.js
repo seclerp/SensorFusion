@@ -19,23 +19,33 @@ import IconButton from "@material-ui/core/IconButton";
 import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import CompassCalibration from '@material-ui/icons/CompassCalibration'
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import {Icon} from "@material-ui/core";
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const styles = theme => ({
   root: {
     display: 'flex',
+    height: '100vh'
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
   },
-  toolbarIcon: {
+  toolbarIconContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     padding: '0 8px',
     ...theme.mixins.toolbar,
+  },
+  toolbarLogo: {
+    marginRight: 'auto',
+    paddingLeft: '8px'
+  },
+  toolbarLogoIcon: {
+    marginRight: '16px'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -55,8 +65,10 @@ const styles = theme => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    height: '100%'
   },
   drawerPaper: {
+    overflowX: 'hidden',
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth,
@@ -107,7 +119,7 @@ class Layout extends Component {
     const {classes, menu} = this.props;
 
     return (
-      <div>
+      <div className={classes.root}>
         <AppBar position="absolute" className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
           <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
             <IconButton
@@ -139,7 +151,18 @@ class Layout extends Component {
           }}
           open={this.state.open}
         >
-          <div className={classes.toolbarIcon}>
+          <div className={classes.toolbarIconContainer}>
+            <div className={classes.toolbarLogo}>
+              <Typography
+                component="h4"
+                variant="h6"
+                color="inherit"
+                noWrap
+              >
+                <CompassCalibration className={classes.toolbarLogoIcon}/>
+                Sensor Fusion
+              </Typography>
+            </div>
             <IconButton onClick={this.handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>
