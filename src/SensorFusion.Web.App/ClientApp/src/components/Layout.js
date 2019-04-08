@@ -23,7 +23,7 @@ import CompassCalibration from '@material-ui/icons/CompassCalibration'
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {Icon} from "@material-ui/core";
 
-const drawerWidth = 260;
+const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
@@ -42,10 +42,14 @@ const styles = theme => ({
   },
   toolbarLogo: {
     marginRight: 'auto',
-    paddingLeft: '8px'
+    paddingLeft: '5px'
   },
   toolbarLogoIcon: {
-    marginRight: '16px'
+    marginRight: '10px',
+    verticalAlign: 'middle'
+  },
+  toolbarLogoText: {
+    verticalAlign: 'middle'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -160,7 +164,7 @@ class Layout extends Component {
                 noWrap
               >
                 <CompassCalibration className={classes.toolbarLogoIcon}/>
-                Sensor Fusion
+                <span className={classes.toolbarLogoText}>Sensor Fusion</span>
               </Typography>
             </div>
             <IconButton onClick={this.handleDrawerClose}>
