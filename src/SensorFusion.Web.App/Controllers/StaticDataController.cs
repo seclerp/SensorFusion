@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SensorFusion.Web.App.Models;
 using SensorFusion.Web.App.Services.Abstractions;
@@ -15,6 +16,7 @@ namespace SensorFusion.Web.App.Controllers
       _staticDataProvider = staticDataProvider;
     }
 
+    [Authorize]
     [HttpGet("")]
     public StaticDataModel Index() => _staticDataProvider.GetStaticData();
   }

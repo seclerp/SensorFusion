@@ -1,6 +1,5 @@
 using Autofac;
 using SensorFusion.Web.App.Services;
-using SensorFusion.Web.App.Services.Abstractions;
 
 namespace SensorFusion.Web.App.Config
 {
