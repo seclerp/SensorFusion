@@ -104,6 +104,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
   },
+  appBarSpacer: theme.mixins.toolbar
 });
 
 class Layout extends Component {
@@ -174,6 +175,10 @@ class Layout extends Component {
           <Divider />
           <AppMenu menu={menu} />
         </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer}/>
+          {this.props.children}
+        </main>
       </div>
     )
   }

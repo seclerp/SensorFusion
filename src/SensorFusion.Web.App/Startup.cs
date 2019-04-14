@@ -31,11 +31,11 @@ namespace SensorFusion.Web.App
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<ApplicationDbContext>(options =>
+      services.AddDbContext<AppDbContext>(options =>
         options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
       services.AddIdentity<User, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
 
       JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
@@ -75,7 +75,7 @@ namespace SensorFusion.Web.App
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext dbContext)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext dbContext)
     {
       if (env.IsDevelopment())
       {
@@ -117,7 +117,20 @@ namespace SensorFusion.Web.App
         }
       });
 
-      dbContext.Database.EnsureCreated();
+      UpdateDatabase(app);
+    }
+
+    private static void UpdateDatabase(IApplicationBuilder app)
+    {
+      using (var serviceScope = app.ApplicationServices
+        .GetRequiredService<IServiceScopeFactory>()
+        .CreateScope())
+      {
+        using (var context = serviceScope.ServiceProvider.GetService<AppDbContext>())
+        {
+          context.Database.Migrate();
+        }
+      }
     }
   }
 }

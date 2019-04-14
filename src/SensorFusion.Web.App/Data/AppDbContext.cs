@@ -4,11 +4,11 @@ using SensorFusion.Web.App.Data.Entities;
 
 namespace SensorFusion.Web.App.Data
 {
-  public class ApplicationDbContext : IdentityDbContext<User>
+  public class AppDbContext : IdentityDbContext<User>
   {
     public DbSet<Sensor> Sensors { get; set; }
 
-    public ApplicationDbContext(DbContextOptions options) : base(options)
+    public AppDbContext(DbContextOptions options) : base(options)
     {
     }
   }

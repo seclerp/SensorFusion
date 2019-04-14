@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SensorFusion.Web.App.Models;
+using SensorFusion.Web.App.Data.Models;
 using SensorFusion.Web.App.Services.Abstractions;
 
 namespace SensorFusion.Web.App.Services
@@ -10,9 +10,9 @@ namespace SensorFusion.Web.App.Services
     {
       Menu = new List<MenuItem>
       {
-        new MenuItem("Dashboard", "/",          "dashboard"),
-        new MenuItem("Sensors",   "/sensors",   "leak_add"),
-        new MenuItem("Settings",  "/settings",  "settings")
+        new MenuItem("Dashboard", "",          "dashboard"),
+        new MenuItem("Sensors",   "sensors",   "leak_add"),
+        new MenuItem("Settings",  "settings",  "settings")
       },
       Locales = new List<Locale>
       {

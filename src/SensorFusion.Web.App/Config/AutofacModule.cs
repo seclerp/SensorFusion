@@ -13,6 +13,10 @@ namespace SensorFusion.Web.App.Config
         .RegisterType<StaticDataProvider>()
         .AsImplementedInterfaces()
         .SingleInstance();
+
+      builder
+        .RegisterType<SensorService>()
+        .AsImplementedInterfaces();
     }
   }
 }

@@ -1,4 +1,4 @@
-using SensorFusion.Web.App.Models;
+using SensorFusion.Web.App.Data.Models;
 
 namespace SensorFusion.Web.App.Services.Abstractions
 {

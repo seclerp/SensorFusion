@@ -1,4 +1,4 @@
-namespace SensorFusion.Web.App.Models
+namespace SensorFusion.Web.App.Data.Models
 {
   public class MenuItem
   {
