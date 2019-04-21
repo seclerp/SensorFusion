@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SensorFusion.Web.App.Data.Entities;
+using SensorFusion.Shared.Data.Entities;
 using SensorFusion.Web.App.Data.Dtos;
 
 namespace SensorFusion.Web.App.Controllers

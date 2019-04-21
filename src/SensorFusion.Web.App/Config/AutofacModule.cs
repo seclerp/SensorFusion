@@ -1,4 +1,5 @@
 using Autofac;
+using SensorFusion.Web.App.Filters;
 using SensorFusion.Web.App.Services;
 
 namespace SensorFusion.Web.App.Config
@@ -10,12 +11,20 @@ namespace SensorFusion.Web.App.Config
       base.Load(builder);
 
       builder
+        .RegisterType<SubscriptionsSetupFilter>()
+        .AsImplementedInterfaces();
+
+      builder
         .RegisterType<StaticDataProvider>()
         .AsImplementedInterfaces()
         .SingleInstance();
 
       builder
-        .RegisterType<SensorService>()
+        .RegisterType<SensorManagementService>()
+        .AsImplementedInterfaces();
+
+      builder
+        .RegisterType<SensorHistoryService>()
         .AsImplementedInterfaces();
     }
   }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace SensorFusion.Web.App.Data.Entities
+namespace SensorFusion.Shared.Data.Entities
 {
   public class User : IdentityUser
   {

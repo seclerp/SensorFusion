@@ -3,9 +3,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SensorFusion.Web.App.Data;
+using SensorFusion.Shared.Data;
 
-namespace SensorFusion.Web.App.Migrations
+namespace SensorFusion.Shared.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -124,7 +124,7 @@ namespace SensorFusion.Web.App.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SensorFusion.Web.App.Data.Entities.Sensor", b =>
+            modelBuilder.Entity("SensorFusion.Shared.Data.Entities.Sensor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -142,7 +142,20 @@ namespace SensorFusion.Web.App.Migrations
                     b.ToTable("Sensors");
                 });
 
-            modelBuilder.Entity("SensorFusion.Web.App.Data.Entities.User", b =>
+            modelBuilder.Entity("SensorFusion.Shared.Data.Entities.SensorValue", b =>
+                {
+                    b.Property<int>("SensorId");
+
+                    b.Property<DateTime>("TimeSent");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("SensorId", "TimeSent");
+
+                    b.ToTable("SensorValues");
+                });
+
+            modelBuilder.Entity("SensorFusion.Shared.Data.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -202,7 +215,7 @@ namespace SensorFusion.Web.App.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SensorFusion.Web.App.Data.Entities.User")
+                    b.HasOne("SensorFusion.Shared.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -210,7 +223,7 @@ namespace SensorFusion.Web.App.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SensorFusion.Web.App.Data.Entities.User")
+                    b.HasOne("SensorFusion.Shared.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -223,7 +236,7 @@ namespace SensorFusion.Web.App.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SensorFusion.Web.App.Data.Entities.User")
+                    b.HasOne("SensorFusion.Shared.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -231,15 +244,15 @@ namespace SensorFusion.Web.App.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SensorFusion.Web.App.Data.Entities.User")
+                    b.HasOne("SensorFusion.Shared.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SensorFusion.Web.App.Data.Entities.Sensor", b =>
+            modelBuilder.Entity("SensorFusion.Shared.Data.Entities.Sensor", b =>
                 {
-                    b.HasOne("SensorFusion.Web.App.Data.Entities.User", "User")
+                    b.HasOne("SensorFusion.Shared.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });

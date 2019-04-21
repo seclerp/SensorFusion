@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SensorFusion.Shared.Data;
+using SensorFusion.Shared.Data.Entities;
 using SensorFusion.Web.App.Data;
-using SensorFusion.Web.App.Data.Entities;
 using SensorFusion.Web.App.Services.Abstractions;
 
 namespace SensorFusion.Web.App.Services
 {
-  class SensorService : ISensorService
+  class SensorManagementService : ISensorManagementService
   {
     private readonly AppDbContext _context;
 
-    public SensorService(AppDbContext context)
+    public SensorManagementService(AppDbContext context)
     {
       _context = context;
     }

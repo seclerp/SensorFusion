@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SensorFusion.Shared.Data.Entities;
 using SensorFusion.Web.App.Data.Dtos;
-using SensorFusion.Web.App.Data.Entities;
 using SensorFusion.Web.App.Data.Models;
 using SensorFusion.Web.App.Services.Abstractions;
 
@@ -15,12 +15,12 @@ namespace SensorFusion.Web.App.Controllers
   [Route("api/sensors")]
   public class SensorsController : ControllerBase
   {
-    private readonly ISensorService _sensorService;
+    private readonly ISensorManagementService _sensorManagementService;
     private readonly UserManager<User> _userManager;
 
-    public SensorsController(ISensorService sensorService, UserManager<User> userManager)
+    public SensorsController(ISensorManagementService sensorManagementService, UserManager<User> userManager)
     {
-      _sensorService = sensorService;
+      _sensorManagementService = sensorManagementService;
       _userManager = userManager;
     }
 
@@ -29,14 +29,14 @@ namespace SensorFusion.Web.App.Controllers
     public async Task Create([FromBody] SensorCreateDto createDto)
     {
       var user = await _userManager.GetUserAsync(User);
-      await _sensorService.Create(user, createDto.Name);
+      await _sensorManagementService.Create(user, createDto.Name);
     }
 
     [Authorize]
     [HttpPut("rename")]
     public async Task Rename([FromBody] SensorRenameDto renameDto)
     {
-      await _sensorService.Rename(renameDto.Id, renameDto.Name);
+      await _sensorManagementService.Rename(renameDto.Id, renameDto.Name);
     }
 
     [Authorize]
@@ -45,7 +45,7 @@ namespace SensorFusion.Web.App.Controllers
     {
       var user = await _userManager.GetUserAsync(User);
 
-      return _sensorService
+      return _sensorManagementService
         .GetAllByUser(user)
         .Select(Map)
         .ToList();

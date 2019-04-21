@@ -7,7 +7,7 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {withStyles} from "@material-ui/styles";
-import UserManager from "services/UserManager"
+import UserManager from "./services/UserManager.js"
 //import theme from './themes/Cyan'
 
 const styles = theme => ({
@@ -44,11 +44,11 @@ class App extends Component {
       ? (<Layout menu={this.state.staticdata.menu}>
           <Route exact path='/' component={Home}/>
           <Route path='/sensors' component={Sensors}/>
-          <Route path='/sensors/new' component={NewSensor}/>
+          <Route path='/sensors/new' component={Home}/>
         </Layout>)
       : (<div>
-          <Route path='/signin' component={SignIn}/>
-          <Route path='/signup' component={SignUp}/>
+          <Route path='/signin' component={Home}/>
+          <Route path='/signup' component={Home}/>
         </div>);
 
   render = () =>

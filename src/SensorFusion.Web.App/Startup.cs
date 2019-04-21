@@ -14,9 +14,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using SensorFusion.Shared.Data;
+using SensorFusion.Shared.Data.Entities;
 using SensorFusion.Web.App.Config;
-using SensorFusion.Web.App.Data;
-using SensorFusion.Web.App.Data.Entities;
+using SensorFusion.Web.App.Services.Abstractions;
+using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SensorFusion.Web.App
@@ -34,7 +36,10 @@ namespace SensorFusion.Web.App
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<AppDbContext>(options =>
-        options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+        options.UseMySql(Configuration.GetConnectionString("MySQL")));
+
+      services.AddSingleton<IConnectionMultiplexer>(
+        ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis")));
 
       services.AddIdentity<User, IdentityRole>()
         .AddEntityFrameworkStores<AppDbContext>()
@@ -84,7 +89,8 @@ namespace SensorFusion.Web.App
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext dbContext)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext dbContext,
+      IConnectionMultiplexer redisMultiplexer, ISensorHistoryService sensorHistoryService)
     {
       if (env.IsDevelopment())
       {

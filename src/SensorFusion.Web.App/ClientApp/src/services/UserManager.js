@@ -1,4 +1,4 @@
-export class UserManager {
+export default class UserManager {
   buildTokenAxiosConfig = () => ({
     headers: {'Authorization': "bearer " + localStorage.getItem("token")}
   });

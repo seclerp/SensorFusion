@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SensorFusion.Web.App.Data.Entities;
+using SensorFusion.Shared.Data.Entities;
 
 namespace SensorFusion.Web.App.Services.Abstractions
 {
-  public interface ISensorService
+  public interface ISensorManagementService
   {
     Task<int> Create(User user, string name);
     Task<Sensor> Get(int id);

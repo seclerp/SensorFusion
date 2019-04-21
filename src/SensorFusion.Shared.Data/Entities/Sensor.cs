@@ -1,4 +1,4 @@
-namespace SensorFusion.Web.App.Data.Entities
+namespace SensorFusion.Shared.Data.Entities
 {
   public class Sensor
   {

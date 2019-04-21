@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SensorFusion.Web.App.Migrations
+namespace SensorFusion.Shared.Data.Migrations
 {
     public partial class Initial : Migration
     {

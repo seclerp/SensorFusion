@@ -42,7 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Migrations" />
+      <ProjectReference Include="..\SensorFusion.Shared.Data\SensorFusion.Shared.Data.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
