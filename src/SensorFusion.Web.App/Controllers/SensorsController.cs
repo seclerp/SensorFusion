@@ -25,21 +25,20 @@ namespace SensorFusion.Web.App.Controllers
     }
 
     [Authorize]
-    [HttpGet("create")]
-    public async Task Create([FromBody] SensorCreateDto sensorDto)
+    [HttpPost("create")]
+    public async Task Create([FromBody] SensorCreateDto createDto)
     {
       var user = await _userManager.GetUserAsync(User);
-      await _sensorService.Create(user, sensorDto.Name);
+      await _sensorService.Create(user, createDto.Name);
     }
 
     [Authorize]
-    [HttpGet("rename")]
-    public async Task Rename([FromBody] SensorCreateDto sensorDto)
+    [HttpPut("rename")]
+    public async Task Rename([FromBody] SensorRenameDto renameDto)
     {
-      var user = await _userManager.GetUserAsync(User);
-      await _sensorService.Create(user, sensorDto.Name);
+      await _sensorService.Rename(renameDto.Id, renameDto.Name);
     }
-    
+
     [Authorize]
     [HttpGet("")]
     public async Task<List<SensorModel>> GetByUser()

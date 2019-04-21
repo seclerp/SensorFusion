@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Text;
 using Autofac;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -63,6 +65,13 @@ namespace SensorFusion.Web.App
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new Info { Title = "SensorFusion API", Version = "v1" });
+        c.AddSecurityDefinition("Bearer",
+          new ApiKeyScheme { In = "header",
+            Description = "Please enter into field the word 'Bearer' following by space and JWT", 
+            Name = "Authorization", Type = "apiKey" });
+        c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+          { "Bearer", Enumerable.Empty<string>() }
+        });
       });
 
       // In production, the React files will be served from this directory

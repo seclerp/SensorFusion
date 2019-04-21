@@ -9,7 +9,7 @@ using SensorFusion.Web.App.Data;
 namespace SensorFusion.Web.App.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190414132701_Initial")]
+    [Migration("20190421132555_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,7 +135,11 @@ namespace SensorFusion.Web.App.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sensors");
                 });
@@ -233,6 +237,13 @@ namespace SensorFusion.Web.App.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SensorFusion.Web.App.Data.Entities.Sensor", b =>
+                {
+                    b.HasOne("SensorFusion.Web.App.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

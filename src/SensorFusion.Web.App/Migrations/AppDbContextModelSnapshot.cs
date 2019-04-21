@@ -133,7 +133,11 @@ namespace SensorFusion.Web.App.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sensors");
                 });
@@ -231,6 +235,13 @@ namespace SensorFusion.Web.App.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SensorFusion.Web.App.Data.Entities.Sensor", b =>
+                {
+                    b.HasOne("SensorFusion.Web.App.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

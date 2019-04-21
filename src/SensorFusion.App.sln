@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.Receiver.Liste
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IoT", "IoT", "{AFB5F9D3-D4EB-4F0D-85FA-8BA9FF6A780F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.Receiver.Publisher", "SensorFusion.Receiver.Publisher\SensorFusion.Receiver.Publisher.csproj", "{27B02BC3-271D-4A52-B2B7-9F88554F81D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.Receiver.Master", "SensorFusion.Receiver.Master\SensorFusion.Receiver.Master.csproj", "{27B02BC3-271D-4A52-B2B7-9F88554F81D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.IoT.SensorEmulator", "SensorFusion.IoT.SensorEmulator\SensorFusion.IoT.SensorEmulator.csproj", "{619459EB-AB5C-4765-9645-9559B178CA72}"
 EndProject
