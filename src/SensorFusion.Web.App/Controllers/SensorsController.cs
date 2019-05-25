@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,10 +19,17 @@ namespace SensorFusion.Web.App.Controllers
     private readonly ISensorManagementService _sensorManagementService;
     private readonly UserManager<User> _userManager;
 
+    private delegate void SensorRenamedDelegate(int sensorId, string newName);
+
+    private readonly Action<int, string> _onSensorRename;
+    private event SensorRenamedDelegate OnSensorRenameEvent;
+
     public SensorsController(ISensorManagementService sensorManagementService, UserManager<User> userManager)
     {
       _sensorManagementService = sensorManagementService;
       _userManager = userManager;
+      _onSensorRename += HandleRenamed;
+      OnSensorRenameEvent += HandleRenamed;
     }
 
     [Authorize]
@@ -37,6 +45,8 @@ namespace SensorFusion.Web.App.Controllers
     public async Task Rename([FromBody] SensorRenameDto renameDto)
     {
       await _sensorManagementService.Rename(renameDto.Id, renameDto.Name);
+      _onSensorRename?.Invoke(renameDto.Id, renameDto.Name);
+      OnSensorRenameEvent?.Invoke(renameDto.Id, renameDto.Name);
     }
 
     [Authorize]
@@ -58,5 +68,8 @@ namespace SensorFusion.Web.App.Controllers
         Key = sensor.Key,
         Name = sensor.Name
       };
+
+    private void HandleRenamed(int sensorId, string newName)
+      => Console.WriteLine($"Sensor {sensorId} renamed to {newName}");
   }
 }
