@@ -11,10 +11,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SensorFusion.Shared.Data.Entities;
 using SensorFusion.Web.App.Data.Dtos;
+using SensorFusion.Web.App.Exceptions;
 
 namespace SensorFusion.Web.App.Controllers
 {
-  [Route("account")]
+  [Route("api/account")]
   public class AccountController : Controller
   {
     private readonly SignInManager<User> _signInManager;
@@ -44,7 +45,7 @@ namespace SensorFusion.Web.App.Controllers
         return new {token};
       }
 
-      throw new Exception($"Failed to authorize user, reason: {result}");
+      throw new BusinessLogicException($"Failed to authorize user, reason: {result}");
     }
 
     [HttpPost("register")]

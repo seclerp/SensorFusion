@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
-using Autofac;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,7 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Entities;
-using SensorFusion.Web.App.Config;
+using SensorFusion.Web.App.Filters;
+using SensorFusion.Web.App.Services;
 using SensorFusion.Web.App.Services.Abstractions;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
@@ -37,9 +37,6 @@ namespace SensorFusion.Web.App
     {
       services.AddDbContext<AppDbContext>(options =>
         options.UseMySql(Configuration.GetConnectionString("MySQL")));
-
-      services.AddSingleton<IConnectionMultiplexer>(
-        ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis")));
 
       services.AddIdentity<User, IdentityRole>()
         .AddEntityFrameworkStores<AppDbContext>()
@@ -81,16 +78,22 @@ namespace SensorFusion.Web.App
 
       // In production, the React files will be served from this directory
       services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
-    }
 
-    public void ConfigureContainer(ContainerBuilder builder)
-    {
-      builder.RegisterModule(new AutofacModule());
+      services.AddSingleton<IStaticDataProvider, StaticDataProvider>();
+
+      if (Convert.ToBoolean(Configuration["Redis:Enabled"]))
+      {
+        services.AddSingleton<IConnectionMultiplexer>(
+          ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis")));
+        services.AddTransient<IStartupFilter, SubscriptionsSetupFilter>();
+      }
+
+      services.AddTransient<ISensorManagementService, SensorManagementService>();
+      services.AddTransient<ISensorHistoryService, SensorHistoryService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext dbContext,
-      IConnectionMultiplexer redisMultiplexer, ISensorHistoryService sensorHistoryService)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext dbContext, ISensorHistoryService sensorHistoryService)
     {
       if (env.IsDevelopment())
       {
@@ -105,7 +108,6 @@ namespace SensorFusion.Web.App
 
       app.UseHttpsRedirection();
       app.UseStaticFiles();
-      app.UseSpaStaticFiles();
       app.UseAuthentication();
 
       app.UseSwagger();
@@ -120,16 +122,6 @@ namespace SensorFusion.Web.App
         routes.MapRoute(
           name: "default",
           template: "{controller}/{action=Index}/{id?}");
-      });
-
-      app.UseSpa(spa =>
-      {
-        spa.Options.SourcePath = "ClientApp";
-
-        if (env.IsDevelopment())
-        {
-          spa.UseReactDevelopmentServer(npmScript: "start");
-        }
       });
 
       UpdateDatabase(app);

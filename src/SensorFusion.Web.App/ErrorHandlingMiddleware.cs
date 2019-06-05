@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using SensorFusion.Web.App.Exceptions;
 
 namespace SensorFusion.Web.App
 {
@@ -34,6 +35,16 @@ namespace SensorFusion.Web.App
       {
         switch (exception)
         {
+          case NotAllowedException ex:
+            await WriteErrorAsync(context, ex.Message,
+              HttpStatusCode.Forbidden);
+            _logger.LogError(exception, ex.Message);
+            break;
+          case BusinessLogicException ex:
+            await WriteErrorAsync(context, ex.Message,
+              HttpStatusCode.BadRequest);
+            _logger.LogError(exception, ex.Message);
+            break;
           default:
             await WriteErrorAsync(context, @"Something went wrong ¯\_(ツ)_/¯, try again later",
               HttpStatusCode.InternalServerError);

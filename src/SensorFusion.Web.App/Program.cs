@@ -1,4 +1,3 @@
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
@@ -13,7 +12,6 @@ namespace SensorFusion.Web.App
 
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
       WebHost.CreateDefaultBuilder(args)
-        .ConfigureServices(services => services.AddAutofac())
         .UseStartup<Startup>();
   }
 }

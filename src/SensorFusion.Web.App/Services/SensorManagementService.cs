@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Entities;
-using SensorFusion.Web.App.Data;
 using SensorFusion.Web.App.Services.Abstractions;
 
 namespace SensorFusion.Web.App.Services
@@ -28,7 +27,7 @@ namespace SensorFusion.Web.App.Services
         Key = GetNewKey()
       };
 
-      _context.Sensors.Add(sensor);
+      await _context.Sensors.AddAsync(sensor);
       await _context.SaveChangesAsync();
 
       return sensor.Id;
