@@ -10,10 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SensorFusion.Shared.Data.Entities;
-using SensorFusion.Web.App.Data.Dtos;
-using SensorFusion.Web.App.Exceptions;
+using SensorFusion.Web.Api.Data.Dtos;
+using SensorFusion.Web.Api.Exceptions;
 
-namespace SensorFusion.Web.App.Controllers
+namespace SensorFusion.Web.Api.Controllers
 {
   [Route("api/account")]
   public class AccountController : Controller

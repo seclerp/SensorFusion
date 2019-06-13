@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SensorFusion.Shared.Data.Entities;
 
-namespace SensorFusion.Web.App.Services.Abstractions
+namespace SensorFusion.Web.Api.Services.Abstractions
 {
   public interface ISensorManagementService
   {

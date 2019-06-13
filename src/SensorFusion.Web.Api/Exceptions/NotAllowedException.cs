@@ -1,6 +1,6 @@
 using System;
 
-namespace SensorFusion.Web.App.Exceptions
+namespace SensorFusion.Web.Api.Exceptions
 {
   public class NotAllowedException : Exception
   {

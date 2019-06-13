@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SensorFusion.Web.App.Exceptions;
+using SensorFusion.Web.Api.Exceptions;
 
-namespace SensorFusion.Web.App
+namespace SensorFusion.Web.Api
 {
     public class ErrorHandlingMiddleware
     {

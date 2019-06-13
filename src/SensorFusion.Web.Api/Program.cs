@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace SensorFusion.Web.App
+namespace SensorFusion.Web.Api
 {
   public class Program
   {

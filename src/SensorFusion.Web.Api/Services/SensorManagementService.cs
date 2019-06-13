@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Entities;
-using SensorFusion.Web.App.Services.Abstractions;
+using SensorFusion.Web.Api.Services.Abstractions;
 
-namespace SensorFusion.Web.App.Services
+namespace SensorFusion.Web.Api.Services
 {
   class SensorManagementService : ISensorManagementService
   {

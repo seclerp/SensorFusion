@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Events;
-using SensorFusion.Web.App.Services.Abstractions;
+using SensorFusion.Web.Api.Services.Abstractions;
 using StackExchange.Redis;
 
-namespace SensorFusion.Web.App.Filters
+namespace SensorFusion.Web.Api.Filters
 {
   public class SubscriptionsSetupFilter : IStartupFilter
   {

@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace SensorFusion.Web.App.Services.Abstractions
+namespace SensorFusion.Web.Api.Services.Abstractions
 {
   public interface ISensorHistoryService
   {

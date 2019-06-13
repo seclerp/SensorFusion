@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using SensorFusion.Web.App.Data.Models;
-using SensorFusion.Web.App.Services.Abstractions;
+using SensorFusion.Web.Api.Data.Models;
+using SensorFusion.Web.Api.Services.Abstractions;
 
-namespace SensorFusion.Web.App.Services
+namespace SensorFusion.Web.Api.Services
 {
   class StaticDataProvider : IStaticDataProvider
   {

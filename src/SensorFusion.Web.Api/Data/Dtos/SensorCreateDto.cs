@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SensorFusion.Web.App.Data.Dtos
+namespace SensorFusion.Web.Api.Data.Dtos
 {
   public class SensorCreateDto
   {

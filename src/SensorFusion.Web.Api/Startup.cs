@@ -8,20 +8,19 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Entities;
-using SensorFusion.Web.App.Filters;
-using SensorFusion.Web.App.Services;
-using SensorFusion.Web.App.Services.Abstractions;
+using SensorFusion.Web.Api.Filters;
+using SensorFusion.Web.Api.Services;
+using SensorFusion.Web.Api.Services.Abstractions;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace SensorFusion.Web.App
+namespace SensorFusion.Web.Api
 {
   public class Startup
   {

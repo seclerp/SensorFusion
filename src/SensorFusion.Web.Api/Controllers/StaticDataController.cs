@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SensorFusion.Web.App.Data.Models;
-using SensorFusion.Web.App.Services.Abstractions;
+using SensorFusion.Web.Api.Data.Models;
+using SensorFusion.Web.Api.Services.Abstractions;
 
-namespace SensorFusion.Web.App.Controllers
+namespace SensorFusion.Web.Api.Controllers
 {
   [ApiController]
   [Route("api/staticdata")]
