@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SensorFusion.Receiver.Handlers;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Messages;
 using SensorFusion.Web.Infrastructure.Services;
 using SensorFusion.Web.Infrastructure.Services.Abstractions;
+using SensorFusion.Web.Receiver.Handlers;
 using Socketize;
 using Socketize.Extensions.DependencyInjection;
 using StackExchange.Redis;
 
-namespace SensorFusion.Receiver
+namespace SensorFusion.Web.Receiver
 {
   public class Startup
   {

@@ -9,7 +9,7 @@ using Socketize;
 using Socketize.Abstractions;
 using StackExchange.Redis;
 
-namespace SensorFusion.Receiver.Handlers
+namespace SensorFusion.Web.Receiver.Handlers
 {
   public class SensorHandler : IMessageHandler<SensorUpdateMessage>
   {
