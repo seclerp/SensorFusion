@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="ZeroFormatter.Interfaces, Version=1.6.4.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>C:\Users\a.rublov\.nuget\packages\zeroformatter.interfaces\1.6.4\lib\netstandard1.1\ZeroFormatter.Interfaces.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

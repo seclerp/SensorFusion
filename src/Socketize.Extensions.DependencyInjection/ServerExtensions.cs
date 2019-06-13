@@ -34,7 +34,7 @@ namespace Socketize.Extensions.DependencyInjection
     {
       services.AddSingleton<IMessageHandlerFactory>(serviceProvider => new ServicesHandlerFactory(serviceProvider));
       services.AddTransient<IProcessingService, ProcessingService>();
-      services.AddTransient<IPeer, Server>(serviceProvider => new Server(
+      services.AddSingleton<IPeer, Server>(serviceProvider => new Server(
         serviceProvider.GetService<IProcessingService>(),
         serviceProvider.GetService<ILogger<Server>>(),
         options

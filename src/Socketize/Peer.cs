@@ -12,10 +12,8 @@ namespace Socketize
     private readonly IProcessingService _processingService;
     internal readonly ILogger<Peer> Logger;
 
-    public Context CreateRemoteContext(IPEndPoint target)
-    {
-      return new Context(NetPeer.GetConnection(target));
-    }
+    public Context CreateRemoteContext(IPEndPoint target) =>
+      new Context(NetPeer.GetConnection(target));
 
     public NetPeer NetPeer { get; private set; }
 
@@ -54,7 +52,7 @@ namespace Socketize
         }
         catch (Exception ex)
         {
-          Logger.LogError(ex, "Error while processing message from client");
+          Logger.LogError(ex, "Error while processing message");
         }
       });
     }

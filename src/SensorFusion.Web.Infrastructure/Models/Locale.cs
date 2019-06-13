@@ -1,4 +1,4 @@
-namespace SensorFusion.Web.Api.Data.Models
+namespace SensorFusion.Web.Infrastructure.Models
 {
   public class Locale
   {

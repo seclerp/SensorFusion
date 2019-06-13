@@ -35,10 +35,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\SensorFusion.Shared.Data\SensorFusion.Shared.Data.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Config" />
+      <ProjectReference Include="..\SensorFusion.Shared\SensorFusion.Shared.csproj" />
+      <ProjectReference Include="..\SensorFusion.Web.Infrastructure\SensorFusion.Web.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

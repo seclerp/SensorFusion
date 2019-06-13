@@ -1,6 +1,6 @@
 using System;
 
-namespace SensorFusion.Web.Api.Exceptions
+namespace SensorFusion.Shared.Exceptions
 {
   public class BusinessLogicException : Exception
   {

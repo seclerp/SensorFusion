@@ -6,10 +6,14 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\SensorFusion.Shared.Data\SensorFusion.Shared.Data.csproj" />
+      <ProjectReference Include="..\SensorFusion.Shared\SensorFusion.Shared.csproj" />
+      <ProjectReference Include="..\SensorFusion.Web.Infrastructure\SensorFusion.Web.Infrastructure.csproj" />
+      <ProjectReference Include="..\Socketize.Extensions.DependencyInjection\Socketize.Extensions.DependencyInjection.csproj" />
     </ItemGroup>
 
 </Project>

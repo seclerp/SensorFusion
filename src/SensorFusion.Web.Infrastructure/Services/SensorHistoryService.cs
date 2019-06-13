@@ -2,11 +2,11 @@ using System;
 using System.Threading.Tasks;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Entities;
-using SensorFusion.Web.Api.Services.Abstractions;
+using SensorFusion.Web.Infrastructure.Services.Abstractions;
 
-namespace SensorFusion.Web.Api.Services
+namespace SensorFusion.Web.Infrastructure.Services
 {
-  class SensorHistoryService : ISensorHistoryService
+  public class SensorHistoryService : ISensorHistoryService
   {
     private readonly AppDbContext _context;
 

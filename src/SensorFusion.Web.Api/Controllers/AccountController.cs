@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SensorFusion.Shared.Data.Entities;
-using SensorFusion.Web.Api.Data.Dtos;
-using SensorFusion.Web.Api.Exceptions;
+using SensorFusion.Shared.Exceptions;
+using SensorFusion.Web.Api.Models;
 
 namespace SensorFusion.Web.Api.Controllers
 {

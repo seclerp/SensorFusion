@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,7 @@ namespace SensorFusion.Receiver
   {
     public static void Main(string[] args)
     {
+      SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
       CreateWebHostBuilder(args).Build().Run();
     }
 

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using SensorFusion.Web.Api.Data.Models;
-using SensorFusion.Web.Api.Services.Abstractions;
+using SensorFusion.Web.Infrastructure.Models;
+using SensorFusion.Web.Infrastructure.Services.Abstractions;
 
-namespace SensorFusion.Web.Api.Services
+namespace SensorFusion.Web.Infrastructure.Services
 {
-  class StaticDataProvider : IStaticDataProvider
+  public class StaticDataProvider : IStaticDataProvider
   {
     private StaticDataModel _staticData => new StaticDataModel
     {

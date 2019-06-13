@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SensorFusion.Shared.Data.Entities;
-using SensorFusion.Web.Api.Data.Dtos;
-using SensorFusion.Web.Api.Data.Models;
-using SensorFusion.Web.Api.Exceptions;
-using SensorFusion.Web.Api.Services.Abstractions;
+using SensorFusion.Shared.Exceptions;
+using SensorFusion.Web.Api.Models;
+using SensorFusion.Web.Infrastructure.Models;
+using SensorFusion.Web.Infrastructure.Services.Abstractions;
 
 namespace SensorFusion.Web.Api.Controllers
 {

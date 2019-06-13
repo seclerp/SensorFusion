@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SensorFusion.Web.Api.Data.Dtos
+namespace SensorFusion.Web.Api.Models
 {
   public class SensorRenameDto
   {

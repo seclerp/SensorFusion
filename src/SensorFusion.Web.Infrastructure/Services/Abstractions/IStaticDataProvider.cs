@@ -1,6 +1,6 @@
-using SensorFusion.Web.Api.Data.Models;
+using SensorFusion.Web.Infrastructure.Models;
 
-namespace SensorFusion.Web.Api.Services.Abstractions
+namespace SensorFusion.Web.Infrastructure.Services.Abstractions
 {
   public interface IStaticDataProvider
   {

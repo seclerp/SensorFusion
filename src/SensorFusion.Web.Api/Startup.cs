@@ -15,8 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Entities;
 using SensorFusion.Web.Api.Filters;
-using SensorFusion.Web.Api.Services;
-using SensorFusion.Web.Api.Services.Abstractions;
+using SensorFusion.Web.Infrastructure.Services.Abstractions;
+using SensorFusion.Web.Infrastructure.Services;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -35,7 +35,7 @@ namespace SensorFusion.Web.Api
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<AppDbContext>(options =>
-        options.UseMySql(Configuration.GetConnectionString("MySQL")));
+        options.UseMySql(Configuration.GetConnectionString("MySQL")), ServiceLifetime.Singleton);
 
       services.AddIdentity<User, IdentityRole>()
         .AddEntityFrameworkStores<AppDbContext>()
@@ -77,7 +77,6 @@ namespace SensorFusion.Web.Api
 
       // In production, the React files will be served from this directory
       services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
-
       services.AddSingleton<IStaticDataProvider, StaticDataProvider>();
 
       if (Convert.ToBoolean(Configuration["Redis:Enabled"]))
@@ -87,7 +86,7 @@ namespace SensorFusion.Web.Api
         services.AddTransient<IStartupFilter, SubscriptionsSetupFilter>();
       }
 
-      services.AddTransient<ISensorManagementService, SensorManagementService>();
+      services.AddSingleton<ISensorManagementService, SensorManagementService>();
       services.AddTransient<ISensorHistoryService, SensorHistoryService>();
     }
 

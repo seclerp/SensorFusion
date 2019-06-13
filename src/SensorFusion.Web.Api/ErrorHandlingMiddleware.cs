@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SensorFusion.Web.Api.Exceptions;
+using SensorFusion.Shared.Exceptions;
 
 namespace SensorFusion.Web.Api
 {

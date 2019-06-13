@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Events;
-using SensorFusion.Web.Api.Services.Abstractions;
+using SensorFusion.Web.Infrastructure.Services.Abstractions;
 using StackExchange.Redis;
 
 namespace SensorFusion.Web.Api.Filters
@@ -26,10 +26,10 @@ namespace SensorFusion.Web.Api.Filters
       {
         var subscriber = _redisConnection.GetSubscriber();
 
-        subscriber.Subscribe(RedisConstants.SensorValuesChannel, (channel, value) =>
+        subscriber.SubscribeAsync(RedisConstants.SensorValuesChannel, async (channel, value) =>
         {
           var dto = JsonConvert.DeserializeObject<NewSensorValueEvent>(value.ToString());
-          _sensorHistoryService.AddValue(dto.SensorId, dto.Value, dto.TimeSent);
+          await _sensorHistoryService.AddValue(dto.SensorId, dto.Value, dto.TimeSent);
         });
 
         next(builder);

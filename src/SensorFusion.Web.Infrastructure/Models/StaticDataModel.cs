@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SensorFusion.Web.Api.Data.Models
+namespace SensorFusion.Web.Infrastructure.Models
 {
   public class StaticDataModel
   {

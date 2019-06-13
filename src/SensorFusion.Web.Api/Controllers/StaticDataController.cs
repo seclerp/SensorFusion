@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using SensorFusion.Web.Api.Data.Models;
-using SensorFusion.Web.Api.Services.Abstractions;
+using SensorFusion.Web.Infrastructure.Models;
+using SensorFusion.Web.Infrastructure.Services.Abstractions;
 
 namespace SensorFusion.Web.Api.Controllers
 {

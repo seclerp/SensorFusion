@@ -48,7 +48,7 @@ namespace Socketize.Extensions.DependencyInjection
     {
       services.AddSingleton<IMessageHandlerFactory>(serviceProvider => new ServicesHandlerFactory(serviceProvider));
       services.AddTransient<IProcessingService, ProcessingService>();
-      services.AddTransient<IPeer, Client>(serviceProvider => new Client(
+      services.AddSingleton<IPeer, Client>(serviceProvider => new Client(
         serviceProvider.GetService<IProcessingService>(),
         serviceProvider.GetService<ILogger<Client>>(),
         options
@@ -73,6 +73,11 @@ namespace Socketize.Extensions.DependencyInjection
 
     private static void RegisterHandlers(Schema schema, IServiceCollection services)
     {
+      foreach (var item in schema.Special.Items)
+      {
+        services.AddTransient(item.HandlerType);
+      }
+
       foreach (var part in schema.Parts)
       {
         foreach (var item in part.Items)
