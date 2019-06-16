@@ -33,7 +33,7 @@ namespace SensorFusion.Web.Api.Controllers
       _configuration = configuration;
     }
 
-    [HttpPost("authorize")]
+    [HttpPost("signIn")]
     public async Task<object> Authorize([FromBody] AuthorizeDto model)
     {
       var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
@@ -45,10 +45,10 @@ namespace SensorFusion.Web.Api.Controllers
         return new {token};
       }
 
-      throw new BusinessLogicException($"Failed to authorize user, reason: {result}");
+      throw new BusinessLogicException($"Email or/and password is incorrect");
     }
 
-    [HttpPost("register")]
+    [HttpPost("signUp")]
     public async Task<IActionResult> Register([FromBody] RegisterDto model)
     {
       var user = new User
@@ -61,9 +61,10 @@ namespace SensorFusion.Web.Api.Controllers
       if (result.Succeeded)
       {
         await _signInManager.SignInAsync(user, false);
+        return Ok();
       }
 
-      return Ok();
+      throw new BusinessLogicException(string.Join("; ", result.Errors.Select(error => error.Description)));
     }
 
     private string GenerateJwtToken(string email, IdentityUser user)

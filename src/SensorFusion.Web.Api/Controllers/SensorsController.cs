@@ -19,12 +19,18 @@ namespace SensorFusion.Web.Api.Controllers
     private readonly ISensorManagementService _sensorManagementService;
     private readonly ISensorIdsCacheWriteService _cacheWriteService;
     private readonly UserManager<User> _userManager;
+    private readonly ISensorHistoryService _historyService;
 
-    public SensorsController(ISensorManagementService sensorManagementService, ISensorIdsCacheWriteService cacheWriteService, UserManager<User> userManager)
+    public SensorsController(
+      ISensorManagementService sensorManagementService,
+      ISensorIdsCacheWriteService cacheWriteService,
+      UserManager<User> userManager,
+      ISensorHistoryService historyService)
     {
       _sensorManagementService = sensorManagementService;
       _cacheWriteService = cacheWriteService;
       _userManager = userManager;
+      _historyService = historyService;
     }
 
     [Authorize]
@@ -33,7 +39,7 @@ namespace SensorFusion.Web.Api.Controllers
     {
       var currentUser = await _userManager.GetUserAsync(User);
       await _sensorManagementService.Create(currentUser, createDto.Name);
-      _cacheWriteService.RefreshIds();
+      await _cacheWriteService.RefreshIds();
     }
 
     [Authorize]
@@ -54,19 +60,24 @@ namespace SensorFusion.Web.Api.Controllers
     public async Task<List<SensorModel>> GetByUser()
     {
       var user = await _userManager.GetUserAsync(User);
+      var sensorsByUser = _sensorManagementService.GetAllByUser(user).ToArray();
+      var sensorValues = await Task.WhenAll(sensorsByUser.Select(sensor => _historyService.GetLastValue(sensor.Id)));
 
-      return _sensorManagementService
-        .GetAllByUser(user)
-        .Select(Map)
-        .ToList();
+      return
+        (from sensor in sensorsByUser
+        join sensorValue in sensorValues on sensor.Id equals sensorValue?.SensorId into sensorModels
+        from m in sensorModels.DefaultIfEmpty()
+        select Map(sensor, m)).ToList();
     }
 
-    private static SensorModel Map(Sensor sensor) =>
+    private static SensorModel Map(Sensor sensor, SensorValue value) =>
       new SensorModel
       {
         Id = sensor.Id,
         Key = sensor.Key,
-        Name = sensor.Name
+        Name = sensor.Name,
+        LastValue = value?.Value,
+        LastValueSent = value?.TimeSent
       };
   }
 }

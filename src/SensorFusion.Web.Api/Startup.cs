@@ -89,6 +89,13 @@ namespace SensorFusion.Web.Api
       services.AddTransient<ISensorManagementService, SensorManagementService>();
       services.AddTransient<ISensorIdsCacheWriteService, SensorIdsCacheWriteService>();
       services.AddTransient<ISensorHistoryService, SensorHistoryService>();
+
+      services.AddCors(o => o.AddPolicy("SensorFusionPolicy",
+        builder => builder
+          .AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader())
+      );
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,6 +112,7 @@ namespace SensorFusion.Web.Api
         app.UseHsts();
       }
 
+      app.UseMiddleware<ErrorHandlingMiddleware>();
       app.UseHttpsRedirection();
       app.UseStaticFiles();
       app.UseAuthentication();
@@ -116,6 +124,7 @@ namespace SensorFusion.Web.Api
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "SensorFusion API V1");
       });
 
+      app.UseCors("SensorFusionPolicy");
       app.UseMvc(routes =>
       {
         routes.MapRoute(
