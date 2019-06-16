@@ -37,6 +37,7 @@ namespace SensorFusion.Web.Infrastructure.Services
     public Task<Sensor> Get(string key) => _context.Sensors.FirstOrDefaultAsync(sensor => sensor.Key == key);
 
     public IEnumerable<Sensor> GetAllByUser(User user) => _context.Sensors.Where(sensor => sensor.User == user);
+    public IEnumerable<Sensor> GetAll() => _context.Sensors;
 
     public async Task Rename(int id, string name)
     {

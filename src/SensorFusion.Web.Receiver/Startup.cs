@@ -35,7 +35,7 @@ namespace SensorFusion.Web.Receiver
         builder => builder.Hub("sensor").Route<SensorUpdateMessage, SensorHandler>("update").Complete(),
         new ServerOptions(60102, "SensorFusionTest")
       );
-      services.AddTransient<ISensorManagementService, SensorManagementService>();
+      services.AddTransient<ISensorIdsCacheReadService, SensorIdsCacheReadService>();
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -45,7 +45,7 @@ namespace SensorFusion.Web.Receiver
         app.UseDeveloperExceptionPage();
       }
 
-      app.Run(async context => await context.Response.WriteAsync("Hello World!"));
+      app.Run(async context => await context.Response.WriteAsync("SensorFusion Receiver is running"));
     }
   }
 }

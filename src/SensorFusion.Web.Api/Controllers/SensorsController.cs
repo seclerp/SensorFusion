@@ -17,11 +17,13 @@ namespace SensorFusion.Web.Api.Controllers
   public class SensorsController : ControllerBase
   {
     private readonly ISensorManagementService _sensorManagementService;
+    private readonly ISensorIdsCacheWriteService _cacheWriteService;
     private readonly UserManager<User> _userManager;
 
-    public SensorsController(ISensorManagementService sensorManagementService, UserManager<User> userManager)
+    public SensorsController(ISensorManagementService sensorManagementService, ISensorIdsCacheWriteService cacheWriteService, UserManager<User> userManager)
     {
       _sensorManagementService = sensorManagementService;
+      _cacheWriteService = cacheWriteService;
       _userManager = userManager;
     }
 
@@ -31,6 +33,7 @@ namespace SensorFusion.Web.Api.Controllers
     {
       var currentUser = await _userManager.GetUserAsync(User);
       await _sensorManagementService.Create(currentUser, createDto.Name);
+      _cacheWriteService.RefreshIds();
     }
 
     [Authorize]

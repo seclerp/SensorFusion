@@ -5,6 +5,6 @@ namespace SensorFusion.Web.Infrastructure.Services.Abstractions
 {
   public interface ISensorHistoryService
   {
-    Task AddValue(int sensorId, string value, DateTime timeSent);
+    void AddValue(int sensorId, string value, DateTime timeSent);
   }
 }

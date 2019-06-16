@@ -13,12 +13,15 @@ namespace SensorFusion.Web.Infrastructure.Services
     public SensorHistoryService(AppDbContext context) =>
       _context = context;
 
-    public Task AddValue(int sensorId, string value, DateTime timeSent) =>
-      _context.SensorValues.AddAsync(new SensorValue
+    public void AddValue(int sensorId, string value, DateTime timeSent)
+    {
+      _context.SensorValues.Add(new SensorValue
       {
         SensorId = sensorId,
         Value = value,
         TimeSent = timeSent
       });
+      _context.SaveChanges();
+    }
   }
 }

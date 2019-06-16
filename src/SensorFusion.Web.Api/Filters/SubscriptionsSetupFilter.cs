@@ -1,6 +1,9 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Events;
@@ -9,31 +12,47 @@ using StackExchange.Redis;
 
 namespace SensorFusion.Web.Api.Filters
 {
-  public class SubscriptionsSetupFilter : IStartupFilter
+  public class SubscriptionsSetupFilter : IStartupFilter, IDisposable
   {
+    private readonly ILogger<SubscriptionsSetupFilter> _logger;
     private readonly IConnectionMultiplexer _redisConnection;
     private readonly ISensorHistoryService _sensorHistoryService;
+    private readonly ISensorIdsCacheWriteService _idsCacheWriteService;
+    private IServiceScope _scope;
 
-    public SubscriptionsSetupFilter(IConnectionMultiplexer redisConnection, ISensorHistoryService sensorHistoryService)
+    public SubscriptionsSetupFilter(IServiceProvider provider, ILogger<SubscriptionsSetupFilter> logger, IConnectionMultiplexer redisConnection)
     {
+      _logger = logger;
       _redisConnection = redisConnection;
-      _sensorHistoryService = sensorHistoryService;
+      _scope = provider.CreateScope();
+      _sensorHistoryService = _scope.ServiceProvider.GetRequiredService<ISensorHistoryService>();
+      _idsCacheWriteService = _scope.ServiceProvider.GetRequiredService<ISensorIdsCacheWriteService>();
     }
 
     public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {
       return builder =>
       {
+        _idsCacheWriteService.RefreshIds();
+
         var subscriber = _redisConnection.GetSubscriber();
 
-        subscriber.SubscribeAsync(RedisConstants.SensorValuesChannel, async (channel, value) =>
-        {
-          var dto = JsonConvert.DeserializeObject<NewSensorValueEvent>(value.ToString());
-          await _sensorHistoryService.AddValue(dto.SensorId, dto.Value, dto.TimeSent);
-        });
+        subscriber.Subscribe(RedisConstants.SensorValuesChannel, NewValueHandler);
 
         next(builder);
       };
+    }
+
+    private void NewValueHandler(RedisChannel channel, RedisValue value)
+    {
+      var dto = JsonConvert.DeserializeObject<NewSensorValueEvent>(value.ToString());
+      _sensorHistoryService.AddValue(dto.SensorId, dto.Value, dto.TimeSent);
+      _logger.LogInformation($"Processed new value for sensor '{dto.SensorId}'");
+    }
+
+    public void Dispose()
+    {
+      _scope?.Dispose();
     }
   }
 }

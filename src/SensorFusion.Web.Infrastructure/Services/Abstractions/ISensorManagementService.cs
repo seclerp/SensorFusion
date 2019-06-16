@@ -10,6 +10,7 @@ namespace SensorFusion.Web.Infrastructure.Services.Abstractions
     Task<Sensor> Get(int id);
     Task<Sensor> Get(string key);
     IEnumerable<Sensor> GetAllByUser(User user);
+    IEnumerable<Sensor> GetAll();
     Task Rename(int id, string name);
     Task Delete(int id);
   }

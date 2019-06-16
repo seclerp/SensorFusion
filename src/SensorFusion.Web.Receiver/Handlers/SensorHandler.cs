@@ -15,32 +15,33 @@ namespace SensorFusion.Web.Receiver.Handlers
   {
     private readonly ILogger<Server> _logger;
     private readonly IConnectionMultiplexer _redis;
-    private readonly ISensorManagementService _sensorService;
+    private readonly ISensorIdsCacheReadService _idsService;
 
-    public SensorHandler(ILogger<Server> logger, IConnectionMultiplexer redis, ISensorManagementService sensorService)
+    public SensorHandler(ILogger<Server> logger, IConnectionMultiplexer redis, ISensorIdsCacheReadService idsService)
     {
       _logger = logger;
       _redis = redis;
-      _sensorService = sensorService;
+      _idsService = idsService;
     }
 
     public void Handle(Context context, SensorUpdateMessage message)
     {
-      var sensor = _sensorService.Get(message.SensorKey).GetAwaiter().GetResult();
-      if (sensor is null)
+      var sensorId = _idsService.Get(message.SensorKey);
+      if (sensorId is null)
       {
-        _logger.LogWarning($"Sensor for key '{message.SensorKey}' is not found, skipping update message");
+        _logger.LogWarning($"Id for key '{message.SensorKey}' not found");
         return;
       }
 
-      _redis.GetSubscriber().Publish(RedisConstants.SensorValuesChannel, JsonConvert.SerializeObject(Map(message, sensor)));
+      _redis.GetSubscriber().Publish(RedisConstants.SensorValuesChannel, JsonConvert.SerializeObject(Map(message, sensorId.Value)));
     }
 
-    private static NewSensorValueEvent Map(SensorUpdateMessage message, Sensor sensor) => new NewSensorValueEvent
-    {
-      SensorId = sensor.Id,
-      Value = message.Value,
-      TimeSent = message.TimeSent
-    };
+    private static NewSensorValueEvent Map(SensorUpdateMessage message, int sensorId) =>
+      new NewSensorValueEvent
+      {
+        SensorId = sensorId,
+        Value = message.Value,
+        TimeSent = message.TimeSent
+      };
   }
 }

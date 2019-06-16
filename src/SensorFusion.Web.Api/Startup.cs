@@ -35,7 +35,7 @@ namespace SensorFusion.Web.Api
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<AppDbContext>(options =>
-        options.UseMySql(Configuration.GetConnectionString("MySQL")), ServiceLifetime.Singleton);
+        options.UseMySql(Configuration.GetConnectionString("MySQL")), ServiceLifetime.Transient);
 
       services.AddIdentity<User, IdentityRole>()
         .AddEntityFrameworkStores<AppDbContext>()
@@ -86,7 +86,8 @@ namespace SensorFusion.Web.Api
         services.AddTransient<IStartupFilter, SubscriptionsSetupFilter>();
       }
 
-      services.AddSingleton<ISensorManagementService, SensorManagementService>();
+      services.AddTransient<ISensorManagementService, SensorManagementService>();
+      services.AddTransient<ISensorIdsCacheWriteService, SensorIdsCacheWriteService>();
       services.AddTransient<ISensorHistoryService, SensorHistoryService>();
     }
 
