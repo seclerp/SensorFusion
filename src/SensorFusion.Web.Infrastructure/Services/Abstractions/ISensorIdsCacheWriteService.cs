@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace SensorFusion.Web.Infrastructure.Services.Abstractions
 {
   public interface ISensorIdsCacheWriteService
   {
-    void RefreshIds();
+    Task RefreshIds();
   }
 }

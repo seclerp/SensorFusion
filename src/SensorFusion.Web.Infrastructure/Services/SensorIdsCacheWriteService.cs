@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using SensorFusion.Web.Infrastructure.Services.Abstractions;
 using StackExchange.Redis;
 
@@ -15,14 +16,14 @@ namespace SensorFusion.Web.Infrastructure.Services
       _redis = redis;
     }
 
-    public void RefreshIds()
+    public async Task RefreshIds()
     {
       var allSensors = _sensorManagementService
         .GetAll()
         .Select(sensor => new HashEntry(sensor.Key, sensor.Id))
         .ToArray();
 
-      _redis.GetDatabase().HashSet("sensorIds", allSensors);
+      await _redis.GetDatabase().HashSetAsync("sensorIds", allSensors);
     }
   }
 }
