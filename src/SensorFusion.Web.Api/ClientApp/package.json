@@ -1,5 +1,5 @@
 {
-  "name": "sensor-fusion-fe",
+  "name": "sensor-fusion",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
