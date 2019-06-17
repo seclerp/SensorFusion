@@ -6,15 +6,17 @@ import {connect, Provider} from "react-redux";
 import SignInPage from "./components/pages/SignInPage";
 import PrivateRoute from "./components/PrivateRoute";
 import SignUpPage from "./components/pages/SignUpPage";
+import SensorDetailsPage from "./components/pages/SensorDetailsPage";
 
 const App = (props) => {
   return (
     <Router>
       <div className="App">
-        <Route path="/signin" component={SignInPage} />
-        <Route path="/signup" component={SignUpPage} />
-        <PrivateRoute path="/" exact component={SensorsPage} />
-        <PrivateRoute path="/sensors/" component={SensorsPage} />
+        <Route exact path="/signin" component={SignInPage} />
+        <Route exact path="/signup" component={SignUpPage} />
+        <PrivateRoute exact path="/" component={SensorsPage} />
+        <PrivateRoute exact path="/sensors" component={SensorsPage} />
+        <PrivateRoute exact path="/sensors/:id" component={SensorDetailsPage} />
       </div>
     </Router>
   );

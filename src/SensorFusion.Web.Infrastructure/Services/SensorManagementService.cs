@@ -22,7 +22,7 @@ namespace SensorFusion.Web.Infrastructure.Services
     {
       var sensor = new Sensor
       {
-        User = user,
+        User = await _context.Users.FirstAsync(u => u.Id == user.Id),
         Name = name,
         Key = GetNewKey()
       };
@@ -33,12 +33,12 @@ namespace SensorFusion.Web.Infrastructure.Services
       return sensor.Id;
     }
 
-    public Task<Sensor> Get(int id) => _context.Sensors.FirstOrDefaultAsync(sensor => sensor.Id == id);
-    public Task<Sensor> Get(string key) => _context.Sensors.FirstOrDefaultAsync(sensor => sensor.Key == key);
+    public Task<Sensor> Get(int id) => _context.Sensors.Include(sensor => sensor.User).FirstOrDefaultAsync(sensor => sensor.Id == id);
+    public Task<Sensor> Get(string key) => _context.Sensors.Include(sensor => sensor.User).FirstOrDefaultAsync(sensor => sensor.Key == key);
 
     public IEnumerable<Sensor> GetAllByUser(User user)
     {
-      return _context.Sensors.Where(sensor => sensor.User == user);
+      return _context.Sensors.Include(sensor => sensor.User).Where(sensor => sensor.User == user);
     }
 
     public IEnumerable<Sensor> GetAll() => _context.Sensors;

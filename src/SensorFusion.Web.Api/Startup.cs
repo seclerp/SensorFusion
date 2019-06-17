@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,12 +64,18 @@ namespace SensorFusion.Web.Api
         });
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+      services.AddSpaStaticFiles(configuration =>
+      {
+        configuration.RootPath = "ClientApp/build";
+      });
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new Info { Title = "SensorFusion API", Version = "v1" });
         c.AddSecurityDefinition("Bearer",
           new ApiKeyScheme { In = "header",
-            Description = "Please enter into field the word 'Bearer' following by space and JWT", 
+            Description = "Please enter into field the word 'Bearer' following by space and JWT",
             Name = "Authorization", Type = "apiKey" });
         c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
           { "Bearer", Enumerable.Empty<string>() }
@@ -115,6 +122,7 @@ namespace SensorFusion.Web.Api
       app.UseMiddleware<ErrorHandlingMiddleware>();
       app.UseHttpsRedirection();
       app.UseStaticFiles();
+      app.UseSpaStaticFiles();
       app.UseAuthentication();
 
       app.UseSwagger();
@@ -130,6 +138,16 @@ namespace SensorFusion.Web.Api
         routes.MapRoute(
           name: "default",
           template: "{controller}/{action=Index}/{id?}");
+      });
+
+      app.UseSpa(spa =>
+      {
+        spa.Options.SourcePath = "ClientApp";
+
+        if (env.IsDevelopment())
+        {
+          spa.UseReactDevelopmentServer(npmScript: "start");
+        }
       });
 
       UpdateDatabase(app);

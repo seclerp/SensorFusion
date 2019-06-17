@@ -6,8 +6,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Chip from "@material-ui/core/Chip";
-import Link from '@material-ui/core/Link';
 import AppMenuSection from "./AppMenuSection";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(themes => ({
   menuItem: {
@@ -38,7 +38,7 @@ function AppMenu(props) {
               component={Link}
               style={{ textDecoration: 'none' }}
               key={index}
-              href={item.isExternal && item.url}
+              to={item.url}
               target={item.isExternal && "_blank"}
               className={classes.menuItem}
             >

@@ -17,9 +17,9 @@ import UpdateIcon from "@material-ui/icons/Update"
 import LiveHelpIcon from "@material-ui/icons/LiveHelp"
 
 export default [
-  { type: "link", title: "Home", icon: (<HomeIcon/>) },
-  { type: "link", title: "Sensors", icon: (<HomeIcon/>) },
-  { type: "link", title: "Reports", icon: (<HomeIcon/>) },
+  { type: "link", title: "Sensors", url: "/sensors", icon: (<HomeIcon/>) },
+  { type: "link", title: "Monitoring", url: "/monitoring", icon: (<HomeIcon/>) },
+  { type: "link", title: "Help", url: "/help", icon: (<HomeIcon/>) },
 ]
 
 // export default [

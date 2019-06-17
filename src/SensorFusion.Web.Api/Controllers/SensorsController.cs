@@ -48,9 +48,9 @@ namespace SensorFusion.Web.Api.Controllers
     {
       var currentUser = await _userManager.GetUserAsync(User);
       var sensor = await _sensorManagementService.Get(renameDto.Id);
-      if (sensor.User != currentUser)
+      if (sensor.User.Id != currentUser.Id)
       {
-        throw new NotAllowedException($"You are not allowed to rename this sensor");
+        ThrowNotAllowed();
       }
       await _sensorManagementService.Rename(renameDto.Id, renameDto.Name);
     }
@@ -70,14 +70,62 @@ namespace SensorFusion.Web.Api.Controllers
         select Map(sensor, m)).ToList();
     }
 
+    [Authorize]
+    [HttpGet("{id:int}")]
+    public async Task<SensorDetailedModel> Get(int id)
+    {
+      var user = await _userManager.GetUserAsync(User);
+      var sensor = await _sensorManagementService.Get(id);
+      if (sensor.User.Id != user.Id)
+      {
+        ThrowNotAllowed();
+      }
+
+      return Map(sensor, _historyService.GetLastValues(sensor.Id, 10));
+    }
+
+    [Authorize]
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+      var user = await _userManager.GetUserAsync(User);
+      var sensor = await _sensorManagementService.Get(id);
+      if (sensor.User.Id != user.Id)
+      {
+        ThrowNotAllowed();
+      }
+
+      await _sensorManagementService.Delete(id);
+
+      return Ok();
+    }
+
+    private static void ThrowNotAllowed() =>
+      throw new NotAllowedException($"You are not allowed to manage this sensor");
+
     private static SensorModel Map(Sensor sensor, SensorValue value) =>
       new SensorModel
       {
         Id = sensor.Id,
-        Key = sensor.Key,
         Name = sensor.Name,
         LastValue = value?.Value,
         LastValueSent = value?.TimeSent
+      };
+
+    private static SensorDetailedModel Map(Sensor sensor, IEnumerable<SensorValue> values) =>
+      new SensorDetailedModel
+      {
+        Id = sensor.Id,
+        Key = sensor.Key,
+        Name = sensor.Name,
+        LastValues = values.Select(Map).ToList()
+      };
+
+    private static SensorValueModel Map(SensorValue value) =>
+      new SensorValueModel
+      {
+        Value = value.Value,
+        ValueSent = value.TimeSent
       };
   }
 }
