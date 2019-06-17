@@ -30,8 +30,13 @@
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
         <Content Include="ClientApp\src\components\pages\SensorDetailsPage.js" />
+        <Content Include="ClientApp\src\components\pages\SensorEditPage.js" />
+        <Content Include="ClientApp\src\components\SensorLineChart.js" />
+        <Content Include="ClientApp\src\services\DateHelper.js" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Include="ClientApp\src\components\pages\MonitoringPage.js" />
+        <None Include="ClientApp\src\components\SensorMonitoringCard.js" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

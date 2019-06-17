@@ -10,5 +10,6 @@ namespace SensorFusion.Web.Infrastructure.Services.Abstractions
     void AddValue(int sensorId, string value, DateTime timeSent);
     Task<SensorValue> GetLastValue(int sensorId);
     IEnumerable<SensorValue> GetLastValues(int sensorId, int limit = int.MaxValue);
+    int GetValuesCount(int sensorId);
   }
 }

@@ -8,6 +8,7 @@ namespace SensorFusion.Web.Infrastructure.Models
     public int Id { get; set; }
     public string Name { get; set; }
     public string Key { get; set; }
+    public int ValuesCount { get; set; }
     public List<SensorValueModel> LastValues { get; set; }
   }
 

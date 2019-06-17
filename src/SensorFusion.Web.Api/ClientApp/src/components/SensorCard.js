@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SimpleCard = props => {
+const SensorCard = props => {
   const classes = useStyles();
 
   return (
@@ -45,10 +45,11 @@ const SimpleCard = props => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button component={Link} to={"/sensors/"+props.id} size="small">Details</Button>
+        <Button component={Link} to={`/sensors/${props.id}`} size="small">Edit</Button>
+        <Button component={Link} to={`/monitoring/${props.id}`} size="small">Details</Button>
       </CardActions>
     </Card>
   );
 }
 
-export default SimpleCard;
+export default SensorCard;

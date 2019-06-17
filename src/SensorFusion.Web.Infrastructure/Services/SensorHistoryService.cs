@@ -38,5 +38,8 @@ namespace SensorFusion.Web.Infrastructure.Services
         .Where(sensorValue => sensorValue.SensorId == sensorId)
         .OrderByDescending(sensorValue => sensorValue.TimeSent)
         .Take(limit);
+
+    public int GetValuesCount(int sensorId) =>
+      _context.SensorValues.Count(sensorValue => sensorValue.SensorId == sensorId);
   }
 }

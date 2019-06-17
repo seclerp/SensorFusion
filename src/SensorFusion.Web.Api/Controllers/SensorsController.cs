@@ -71,8 +71,34 @@ namespace SensorFusion.Web.Api.Controllers
     }
 
     [Authorize]
+    [HttpGet("detailed")]
+    public async Task<List<SensorDetailedModel>> GetByUserDetailed()
+    {
+      var user = await _userManager.GetUserAsync(User);
+      var sensorsByUser = _sensorManagementService.GetAllByUser(user).ToArray();
+      var sensorValues = sensorsByUser
+        .SelectMany(sensor => _historyService.GetLastValues(sensor.Id, 10))
+        .GroupBy(sensorValue => sensorValue.SensorId)
+        .Select(group => new { SensorId = group.Key, Values = group.OrderByDescending(value => value.TimeSent).ToList() })
+        .ToArray();
+
+      return
+        (from sensor in sensorsByUser
+          join sensorValue in sensorValues on sensor.Id equals sensorValue?.SensorId into sensorModels
+          from m in sensorModels.DefaultIfEmpty()
+          select new SensorDetailedModel
+          {
+            Id = sensor.Id,
+            Key = sensor.Key,
+            Name = sensor.Name,
+            LastValues = m?.Values.Select(Map).ToList(),
+            ValuesCount = _historyService.GetValuesCount(sensor.Id)
+          }).ToList();
+    }
+
+    [Authorize]
     [HttpGet("{id:int}")]
-    public async Task<SensorDetailedModel> Get(int id)
+    public async Task<SensorModel> Get(int id)
     {
       var user = await _userManager.GetUserAsync(User);
       var sensor = await _sensorManagementService.Get(id);
@@ -81,7 +107,24 @@ namespace SensorFusion.Web.Api.Controllers
         ThrowNotAllowed();
       }
 
-      return Map(sensor, _historyService.GetLastValues(sensor.Id, 10));
+      return Map(sensor);
+    }
+
+    [Authorize]
+    [HttpGet("detailed/{id:int}")]
+    public async Task<SensorDetailedModel> GetDetailed(int id, int limit = 10)
+    {
+      var user = await _userManager.GetUserAsync(User);
+      var sensor = await _sensorManagementService.Get(id);
+      if (sensor.User.Id != user.Id)
+      {
+        ThrowNotAllowed();
+      }
+
+      var lasSensorValues = _historyService.GetLastValues(sensor.Id, limit != -1 ? limit : int.MaxValue);
+      var valuesCount = _historyService.GetValuesCount(sensor.Id);
+
+      return Map(sensor, lasSensorValues, valuesCount);
     }
 
     [Authorize]
@@ -112,12 +155,20 @@ namespace SensorFusion.Web.Api.Controllers
         LastValueSent = value?.TimeSent
       };
 
-    private static SensorDetailedModel Map(Sensor sensor, IEnumerable<SensorValue> values) =>
+    private static SensorModel Map(Sensor sensor) =>
+      new SensorModel
+      {
+        Id = sensor.Id,
+        Name = sensor.Name
+      };
+
+    private static SensorDetailedModel Map(Sensor sensor, IEnumerable<SensorValue> values, int valuesCount) =>
       new SensorDetailedModel
       {
         Id = sensor.Id,
         Key = sensor.Key,
         Name = sensor.Name,
+        ValuesCount = valuesCount,
         LastValues = values.Select(Map).ToList()
       };
 

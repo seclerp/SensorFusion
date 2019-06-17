@@ -14,7 +14,6 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import DateHelper from "../../services/DateHelper";
-import SensorLineChart from "../SensorLineChart";
 
 const useStyles = makeStyles(theme => ({
   editContainer: {
@@ -30,21 +29,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SensorDetailsPage = (props) => {
+const SensorEditPage = (props) => {
   const classes = useStyles();
   const [dataLoaded, setDataLoaded] = useState(false);
   const [sensor, setSensor] = useState(null);
   const {user} = props;
   const appSettings = useContext(AppSettingsContext);
-  const {match: {params}} = props;
+  const { match: { params } } = props;
 
   const loadSensor = () => {
     axios
-      .get(`${appSettings.apiRoot}/sensors/detailed/${params.id}`, {
-        headers: {
+      .get(`${appSettings.apiRoot}/sensors/${params.id}`, {headers: {
           "Authorization": "Bearer " + user.token
-        }
-      })
+        }})
       .then(response => {
         setSensor(response.data);
         setDataLoaded(true);
@@ -84,64 +81,62 @@ const SensorDetailsPage = (props) => {
       })
       .catch(error => props.enqueueSnackbar(error.response.data.error, {variant: "error"}));
   };
-
+  
   return (
     <AppBarDrawer title={sensor !== null ? `Sensor '${sensor.name}'` : `Loading sensor ${params.id}...`}>
       <AppPage isLoading={!dataLoaded}>
         <Container className={classes.root} maxWidth="md">
           <Paper className={classes.paper}>
-            {sensor && <SensorLineChart valuesData={sensor.lastValues}/>}
-          </Paper>
-          {sensor && sensor.lastValues.length > 0 ? (
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Paper className={classes.paper2}>
-                  <Typography variant="h6">
-                    Current value: <br/><b>{sensor.lastValues[0].value}</b>
-                  </Typography>
-                </Paper>
-                <Paper className={classes.paper2}>
-                  <Typography variant="body1">
-                    Values count: <b>{sensor.valuesCount}</b>
-                  </Typography>
-                </Paper>
+            <Grid container spacing={2} className={classes.editContainer}>
+              <Grid item xs={3}>
+                <TextField
+                  id="outlined-name-input"
+                  label="Name"
+                  type="text"
+                  name="name"
+                  margin="normal"
+                  variant="outlined"
+                  value={sensor && sensor.name}
+                  fullWidth
+                  onChange={event => setSensor({...sensor, name: event.target.value})}
+                />
               </Grid>
-              <Grid item xs={8}>
-                <Paper className={classes.paper2}>
-                  <Table className={classes.table}>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Time sent</TableCell>
-                        <TableCell align="right">Value</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {sensor && sensor.lastValues.map(value => (
-                        <TableRow key={`${value.value}${value.valueSent}`}>
-                          <TableCell component="th" scope="row">
-                            {DateHelper.format(value.valueSent)}
-                          </TableCell>
-                          <TableCell align="right">{value.value}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </Paper>
+              <Grid item xs={6}>
+                <TextField
+                  id="outlined-key-input"
+                  label="Key"
+                  type="text"
+                  name="key"
+                  margin="normal"
+                  variant="outlined"
+                  disabled
+                  fullWidth
+                  value={sensor && sensor.key}
+                  onChange={event => setSensor({...sensor, name: event.target.value})}
+                />
+              </Grid>
+              <Grid item xs>
+                <Button fullWidth variant="contained" color="primary" onClick={saveChanges}>
+                  Save
+                </Button>
+              </Grid>
+              <Grid item xs>
+                <Button fullWidth variant="contained" color="secondary" onClick={deleteSensor}>
+                  Delete
+                </Button>
               </Grid>
             </Grid>
-          ) : (
-            <Typography>There is no values for this sensor</Typography>
-          )}
+          </Paper>
         </Container>
       </AppPage>
     </AppBarDrawer>
   );
 };
 
-SensorDetailsPage.propTypes = {};
+SensorEditPage.propTypes = {};
 
 const mapStateToProps = state => ({
   user: state.userState
 });
 
-export default connect(mapStateToProps)(withSnackbar(SensorDetailsPage));
+export default connect(mapStateToProps)(withSnackbar(SensorEditPage));
