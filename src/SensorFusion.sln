@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.Web.Api", "SensorFusion.Web.Api\SensorFusion.Web.Api.csproj", "{B4C8C630-E49A-48F7-AB9F-856E9B7C4818}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.IoT.SensorEmulator", "SensorFusion.IoT.SensorEmulator\SensorFusion.IoT.SensorEmulator.csproj", "{619459EB-AB5C-4765-9645-9559B178CA72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.IoT.Hub", "SensorFusion.IoT.Hub\SensorFusion.IoT.Hub.csproj", "{619459EB-AB5C-4765-9645-9559B178CA72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorFusion.Shared.Data", "SensorFusion.Shared.Data\SensorFusion.Shared.Data.csproj", "{5C230160-F108-4D59-8C89-F3A8589EFC7D}"
 EndProject

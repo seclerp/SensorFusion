@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
-using SensorFusion.IoT.SensorEmulator.Configuration;
+using SensorFusion.IoT.Hub.Configuration;
 using Socketize.Abstractions;
 
-namespace SensorFusion.IoT.SensorEmulator
+namespace SensorFusion.IoT.Hub
 {
   class Program
   {
@@ -13,9 +13,9 @@ namespace SensorFusion.IoT.SensorEmulator
       SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
 
       Console.WriteLine("Hello World!");
-      var config = ConfigParser.ProcessArgs(args);
+      var settings = AppSettingsProvider.Get();
       var services = new ServiceCollection();
-      ContainerConfig.RegisterServices(services, config);
+      ContainerConfig.RegisterServices(services, settings);
       var provider = services.BuildServiceProvider();
       var client = provider.GetService<IPeer>();
       client.Start();

@@ -1,4 +1,4 @@
-namespace SensorFusion.IoT.SensorEmulator.Abstractions
+namespace SensorFusion.IoT.Hub.Abstractions
 {
   public interface ISensorValueProducer
   {

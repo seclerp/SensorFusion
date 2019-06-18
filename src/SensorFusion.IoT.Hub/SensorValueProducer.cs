@@ -1,12 +1,13 @@
 using System;
 using System.Net;
 using Microsoft.Extensions.Logging;
-using SensorFusion.IoT.SensorEmulator.Abstractions;
+using SensorFusion.IoT.Hub.Abstractions;
+using SensorFusion.IoT.Hub.Configuration;
 using SensorFusion.Shared.Messages;
 using Socketize;
 using Socketize.Abstractions;
 
-namespace SensorFusion.IoT.SensorEmulator
+namespace SensorFusion.IoT.Hub
 {
   public class SensorValueProducer : ISensorValueProducer
   {
@@ -14,11 +15,11 @@ namespace SensorFusion.IoT.SensorEmulator
     private readonly ILogger<Client> _logger;
     private IPEndPoint _serverEndpoint;
 
-    public SensorValueProducer(IPeer peer, Config config, ILogger<Client> logger)
+    public SensorValueProducer(IPeer peer, AppSettings appSettings, ILogger<Client> logger)
     {
       _peer = peer;
       _logger = logger;
-      _serverEndpoint = new IPEndPoint(IPAddress.Parse(config.ReceiverHost), config.ReceiverPort);
+      _serverEndpoint = new IPEndPoint(IPAddress.Parse(appSettings.Receiver.Host), appSettings.Receiver.Port);
     }
 
     public void Produce(string sensorKey, string value)

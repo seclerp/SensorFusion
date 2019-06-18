@@ -1,0 +1,20 @@
+{
+  "receiver": {
+    "host": "127.0.0.1",
+    "port": 60102,
+    "appName": "SensorFusionTest"
+  },
+  "sensors": [
+    { "key": "776699624d3749df90bfd14f357c07f4", "source": "emulated" },
+    { "key": "0958cc2e561840939d76e353aa75345c", "source": "emulated" },
+    { "key": "bc25f0715e25445cb64a25cda069b0eb", "source": "emulated" },
+    { "key": "8d62379d18f9463a9f265ac9a00250dc", "source": "emulated" },
+    { "key": "5d72be8203e54045bb9f0fd48c5d59b5", "source": "emulated" }
+  ],
+  "emulationSettings": {
+    "from": 0,
+    "to": 1000,
+    "delayMs": 5000,
+    "delayRandomityMs": 5000
+  }
+}
