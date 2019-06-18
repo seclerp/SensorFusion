@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
   icon: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing(1)
   },
   titleContainer: {
     flexGrow: 1,

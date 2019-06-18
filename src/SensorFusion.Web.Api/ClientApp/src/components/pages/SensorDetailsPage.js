@@ -34,6 +34,7 @@ const SensorDetailsPage = (props) => {
   const classes = useStyles();
   const [dataLoaded, setDataLoaded] = useState(false);
   const [sensor, setSensor] = useState(null);
+  const [timeoutHandler, setTimeoutHandler] = useState();
   const {user} = props;
   const appSettings = useContext(AppSettingsContext);
   const {match: {params}} = props;
@@ -49,11 +50,19 @@ const SensorDetailsPage = (props) => {
         setSensor(response.data);
         setDataLoaded(true);
         console.log(response.data);
+        setTimeoutHandler(setTimeout(loadSensor, 5000));
       })
       .catch(error => props.enqueueSnackbar(error.response.data.error, {variant: "error"}));
   };
 
+  const unloadSensors = () => {
+    return () => {
+      clearTimeout(timeoutHandler);
+    }
+  };
+  
   useEffect(loadSensor, []);
+  useEffect(unloadSensors, [timeoutHandler]);
 
   const saveChanges = () => {
     axios

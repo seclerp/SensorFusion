@@ -36,8 +36,8 @@ namespace SensorFusion.Web.Receiver.Handlers
       _redis.GetSubscriber().Publish(RedisConstants.SensorValuesChannel, JsonConvert.SerializeObject(Map(message, sensorId.Value)));
     }
 
-    private static NewSensorValueEvent Map(SensorUpdateMessage message, int sensorId) =>
-      new NewSensorValueEvent
+    private static NewSensorValueRedisEvent Map(SensorUpdateMessage message, int sensorId) =>
+      new NewSensorValueRedisEvent
       {
         SensorId = sensorId,
         Value = message.Value,

@@ -4,11 +4,12 @@ import DateHelper from "../services/DateHelper";
 
 function SensorLineChart(props) {
   const { valuesData } = props;
-  const timeSents = valuesData.reverse().map(valuesDataItem => DateHelper.format(valuesDataItem.valueSent));
-  const values = valuesData.reverse().map(valuesDataItem => parseFloat(valuesDataItem.value));
+  const timeSents = valuesData.slice().reverse().map(valuesDataItem => DateHelper.format(valuesDataItem.valueSent));
+  const values = valuesData.slice().reverse().map(valuesDataItem => parseFloat(valuesDataItem.value));
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    animation: false,
     title: {
       display: false,
     },

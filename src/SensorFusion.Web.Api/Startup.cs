@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using SensorFusion.Shared.Data;
 using SensorFusion.Shared.Data.Entities;
 using SensorFusion.Web.Api.Filters;
+using SensorFusion.Web.Api.Hubs;
 using SensorFusion.Web.Infrastructure.Services.Abstractions;
 using SensorFusion.Web.Infrastructure.Services;
 using StackExchange.Redis;
@@ -64,6 +67,7 @@ namespace SensorFusion.Web.Api
         });
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      services.AddSignalR();
 
       services.AddSpaStaticFiles(configuration =>
       {
@@ -103,6 +107,8 @@ namespace SensorFusion.Web.Api
           .AllowAnyMethod()
           .AllowAnyHeader())
       );
+
+      services.AddMediatR(Assembly.GetAssembly(typeof(Startup)));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,6 +136,11 @@ namespace SensorFusion.Web.Api
       app.UseSwaggerUI(c =>
       {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "SensorFusion API V1");
+      });
+
+      app.UseSignalR(routes =>
+      {
+        routes.MapHub<MonitoringHub>("/monitoringHub");
       });
 
       app.UseCors("SensorFusionPolicy");

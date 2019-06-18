@@ -77,7 +77,7 @@ namespace SensorFusion.Web.Api.Controllers
       var user = await _userManager.GetUserAsync(User);
       var sensorsByUser = _sensorManagementService.GetAllByUser(user).ToArray();
       var sensorValues = sensorsByUser
-        .SelectMany(sensor => _historyService.GetLastValues(sensor.Id, 10))
+        .SelectMany(sensor => _historyService.GetLastValues(sensor.Id, 50))
         .GroupBy(sensorValue => sensorValue.SensorId)
         .Select(group => new { SensorId = group.Key, Values = group.OrderByDescending(value => value.TimeSent).ToList() })
         .ToArray();

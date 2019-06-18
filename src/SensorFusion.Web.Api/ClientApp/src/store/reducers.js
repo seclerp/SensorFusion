@@ -21,10 +21,30 @@ const userSettingsReducer = (state = {}, action) => {
   }
 };
 
+const sensorsMonitoringReducer = (state = [], action) => {
+  switch (action.type) {
+    case actions.sensors.setSensors:
+      console.log("replaced", action.sensors)
+      return action.sensors;
+    case actions.sensors.addNewValue:
+      const updatedSensor = {...action.sensor, lastValues: action.sensor.lastValues.concat([action.newValue])};
+      const sensorsCopy = state.slice();
+      for (let i=0; i<sensorsCopy.length; i++) {
+        if (sensorsCopy[i].id === updatedSensor.id) {
+          sensorsCopy[i] = updatedSensor;
+        }
+      }
+      return sensorsCopy;
+    default:
+      return state;
+  }
+};
+
 const reducers = history => combineReducers({
   router: connectRouter(history),
   userState: userReducer,
-  userSettingsState: userSettingsReducer
+  userSettingsState: userSettingsReducer,
+  sensorsMonitoring: sensorsMonitoringReducer
 });
 
 export default reducers;

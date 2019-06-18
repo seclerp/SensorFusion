@@ -8,12 +8,6 @@ import {connect} from "react-redux";
 import AppBarDrawer from "../AppBarDrawer";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import TableBody from "@material-ui/core/TableBody";
-import DateHelper from "../../services/DateHelper";
 
 const useStyles = makeStyles(theme => ({
   editContainer: {
@@ -39,7 +33,7 @@ const SensorEditPage = (props) => {
 
   const loadSensor = () => {
     axios
-      .get(`${appSettings.apiRoot}/sensors/${params.id}`, {headers: {
+      .get(`${appSettings.apiRoot}/sensors/detailed/${params.id}`, {headers: {
           "Authorization": "Bearer " + user.token
         }})
       .then(response => {

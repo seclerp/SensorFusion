@@ -18,10 +18,10 @@ const styles = theme => ({
     textTransform: 'none'
   },
   profileIcon: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing(1)
   },
   avatar: {
-    margin: theme.spacing.unit
+    margin: theme.spacing(1)
   }
 });
 

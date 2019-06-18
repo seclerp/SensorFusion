@@ -11,7 +11,7 @@ import List from "@material-ui/core/List";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
   }
 }));
 

@@ -34,6 +34,7 @@ const SensorsPage = (props) => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [sensors, setSensors] = useState([]);
   const [addSensorOpened, setAddSensorOpened] = useState(false);
+  const [timeoutHandler, setTimeoutHandler] = useState();
   const [newSensorName, setNewSensorName] = useState("");
   const {user} = props;
   const appSettings = useContext(AppSettingsContext);
@@ -71,11 +72,19 @@ const SensorsPage = (props) => {
       .then(response => {
         setSensors(response.data);
         setDataLoaded(true);
+        setTimeoutHandler(setTimeout(loadSensors, 5000));
       })
       .catch(error => props.enqueueSnackbar(error.response, {variant: "error"}));
   };
 
+  const unloadSensors = () => {
+    return () => {
+      clearTimeout(timeoutHandler);
+    }
+  };
+  
   useEffect(loadSensors, []);
+  useEffect(unloadSensors, [timeoutHandler]);
 
   return (
     <AppBarDrawer title="Your sensors">

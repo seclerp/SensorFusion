@@ -4,5 +4,9 @@ export default {
   },
   userSettings: {
     changeTheme: "CHANGE_THEME"
+  },
+  sensors: {
+    setSensors: "SET_SENSORS",
+    addNewValue: "ADD_NEW_VALUE"
   }
 }
