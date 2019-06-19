@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -32,24 +33,28 @@ const SensorCard = props => {
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Numeric
+          {props.locales["numeric"]}
         </Typography>
         <Typography variant="h5" component="h2">
           {props.name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Enabled
+          {props.locales["enabled"]}
         </Typography>
         <Typography variant="body2" component="p">
-          Current value: <b>{props.value ? props.value : "No values yet"}</b>
+          {props.locales["currentvalue"]}: <b>{props.value ? props.value : props.locales["novalues"]}</b>
         </Typography>
       </CardContent>
       <CardActions>
-        <Button component={Link} to={`/sensors/${props.id}`} size="small">Edit</Button>
-        <Button component={Link} to={`/monitoring/${props.id}`} size="small">Details</Button>
+        <Button component={Link} to={`/sensors/${props.id}`} size="small">{props.locales["edit"]}</Button>
+        <Button component={Link} to={`/monitoring/${props.id}`} size="small">{props.locales["delete"]}</Button>
       </CardActions>
     </Card>
   );
-}
+};
 
-export default SensorCard;
+const mapStateToProps = state => ({
+  locales: state.locales
+});
+
+export default connect(mapStateToProps)(SensorCard);

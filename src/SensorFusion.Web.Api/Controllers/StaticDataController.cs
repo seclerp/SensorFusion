@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using SensorFusion.Web.Infrastructure.Models;
 using SensorFusion.Web.Infrastructure.Services.Abstractions;
@@ -8,14 +9,15 @@ namespace SensorFusion.Web.Api.Controllers
   [Route("api/staticdata")]
   public class StaticDataController : Controller
   {
-    private readonly IStaticDataProvider _staticDataProvider;
+    private readonly ILocalizationService _localizationService;
 
-    public StaticDataController(IStaticDataProvider staticDataProvider)
+    public StaticDataController(ILocalizationService localizationService)
     {
-      _staticDataProvider = staticDataProvider;
+      _localizationService = localizationService;
     }
 
-    [HttpGet("")]
-    public StaticDataModel Index() => _staticDataProvider.GetStaticData();
+    [HttpGet("locales")]
+    public IEnumerable<LocaleItemModel> Index(string language) =>
+      _localizationService.Get(language);
   }
 }

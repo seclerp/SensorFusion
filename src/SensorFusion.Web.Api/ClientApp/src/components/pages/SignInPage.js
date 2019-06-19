@@ -70,11 +70,11 @@ function SignInPage(props) {
               </Avatar>
             </Grid>
             <Typography variant="h6">
-              Sign In to Sensor Fusion
+              {props.locales["signintitle"]}
             </Typography>
             <TextField
               id="outlined-email-input"
-              label="Email"
+              label={props.locales["email"]}
               // className={classes.textField}
               type="email"
               name="email"
@@ -86,7 +86,7 @@ function SignInPage(props) {
             />
             <TextField
               id="outlined-password-input"
-              label="Password"
+              label={props.locales["password"]}
               // className={classes.textField}
               type="password"
               autoComplete="current-password"
@@ -97,10 +97,10 @@ function SignInPage(props) {
             />
             <Grid container justify="center" alignItems="center">
               <Button variant="contained" color="primary" className={classes.button} onClick={trySignIn}>
-                Sign In
+                {props.locales["signin"]}
               </Button>
               <Button color="primary" component={Link} to="/signup" className={classes.button}>
-                Sign Up
+                {props.locales["signup"]}
               </Button>
             </Grid>
           </Paper>
@@ -110,4 +110,9 @@ function SignInPage(props) {
   );
 }
 
-export default connect()(withSnackbar(SignInPage));
+const mapStateToProps = state => ({
+  locales: state.locales
+});
+
+
+export default connect(mapStateToProps)(withSnackbar(SignInPage));

@@ -88,7 +88,6 @@ namespace SensorFusion.Web.Api
 
       // In production, the React files will be served from this directory
       services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
-      services.AddSingleton<IStaticDataProvider, StaticDataProvider>();
 
       if (Convert.ToBoolean(Configuration["Redis:Enabled"]))
       {
@@ -100,6 +99,7 @@ namespace SensorFusion.Web.Api
       services.AddTransient<ISensorManagementService, SensorManagementService>();
       services.AddTransient<ISensorIdsCacheWriteService, SensorIdsCacheWriteService>();
       services.AddTransient<ISensorHistoryService, SensorHistoryService>();
+      services.AddTransient<ILocalizationService, LocalizationService>();
 
       services.AddCors(o => o.AddPolicy("SensorFusionPolicy",
         builder => builder

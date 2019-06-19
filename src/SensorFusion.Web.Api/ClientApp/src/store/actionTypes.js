@@ -8,5 +8,8 @@ export default {
   sensors: {
     setSensors: "SET_SENSORS",
     addNewValue: "ADD_NEW_VALUE"
+  },
+  locales: {
+    setLocales: "SET_LOCALES",
   }
 }

@@ -57,7 +57,7 @@ const SensorEditPage = (props) => {
         }
       })
       .then(response => {
-        props.enqueueSnackbar("Sensor successfully updated")
+        props.enqueueSnackbar(props.locales["updated"])
       })
       .catch(error => props.enqueueSnackbar(error.response.data.error, {variant: "error"}));
   };
@@ -70,14 +70,14 @@ const SensorEditPage = (props) => {
         }
       })
       .then(response => {
-        props.enqueueSnackbar("Sensor successfully deleted");
+        props.enqueueSnackbar(props.locales["deleted"]);
         props.history.push("/sensors");
       })
       .catch(error => props.enqueueSnackbar(error.response.data.error, {variant: "error"}));
   };
   
   return (
-    <AppBarDrawer title={sensor !== null ? `Sensor '${sensor.name}'` : `Loading sensor ${params.id}...`}>
+    <AppBarDrawer title={sensor !== null ? `${props.locales["sensor"]} '${sensor.name}'` : `${props.locales["loading"]} ${params.id}...`}>
       <AppPage isLoading={!dataLoaded}>
         <Container className={classes.root} maxWidth="md">
           <Paper className={classes.paper}>
@@ -85,7 +85,7 @@ const SensorEditPage = (props) => {
               <Grid item xs={3}>
                 <TextField
                   id="outlined-name-input"
-                  label="Name"
+                  label={props.locales["name"]}
                   type="text"
                   name="name"
                   margin="normal"
@@ -95,10 +95,10 @@ const SensorEditPage = (props) => {
                   onChange={event => setSensor({...sensor, name: event.target.value})}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <TextField
                   id="outlined-key-input"
-                  label="Key"
+                  label={props.locales["key"]}
                   type="text"
                   name="key"
                   margin="normal"
@@ -111,12 +111,12 @@ const SensorEditPage = (props) => {
               </Grid>
               <Grid item xs>
                 <Button fullWidth variant="contained" color="primary" onClick={saveChanges}>
-                  Save
+                  {props.locales["save"]}
                 </Button>
               </Grid>
               <Grid item xs>
                 <Button fullWidth variant="contained" color="secondary" onClick={deleteSensor}>
-                  Delete
+                  {props.locales["delete"]}
                 </Button>
               </Grid>
             </Grid>
@@ -130,7 +130,8 @@ const SensorEditPage = (props) => {
 SensorEditPage.propTypes = {};
 
 const mapStateToProps = state => ({
-  user: state.userState
+  user: state.userState,
+  locales: state.locales
 });
 
 export default connect(mapStateToProps)(withSnackbar(SensorEditPage));

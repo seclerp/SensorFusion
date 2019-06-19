@@ -76,11 +76,11 @@ function SignInPage(props) {
               </Avatar>
             </Grid>
             <Typography variant="h6">
-              Sign Up to Sensor Fusion
+              {props.locales["signuptitle"]}
             </Typography>
             <TextField
               id="outlined-email-input"
-              label="Email"
+              label={props.locales["email"]}
               // className={classes.textField}
               type="email"
               name="email"
@@ -92,7 +92,7 @@ function SignInPage(props) {
             />
             <TextField
               id="outlined-password-input"
-              label="Password"
+              label={props.locales["password"]}
               // className={classes.textField}
               type="password"
               autoComplete="current-password"
@@ -103,7 +103,7 @@ function SignInPage(props) {
             />
             <TextField
               id="outlined-repeated-password-input"
-              label="Repeat password"
+              label={props.locales["repeatpassword"]}
               // className={classes.textField}
               type="password"
               autoComplete="current-password"
@@ -114,10 +114,10 @@ function SignInPage(props) {
             />
             <Grid container justify="center" alignItems="center">
               <Button variant="contained" color="secondary" className={classes.button} onClick={trySignUp}>
-                Sign Up
+                {props.locales["signup"]}
               </Button>
               <Button color="primary" component={Link} to="/signin" className={classes.button}>
-                Sign In
+                {props.locales["signin"]}
               </Button>
             </Grid>
           </Paper>
@@ -127,4 +127,9 @@ function SignInPage(props) {
   );
 }
 
-export default connect()(withSnackbar(SignInPage));
+const mapStateToProps = state => ({
+  locales: state.locales
+});
+
+
+export default connect(mapStateToProps)(withSnackbar(SignInPage));

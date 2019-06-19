@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Line } from "react-chartjs-2";
 import DateHelper from "../services/DateHelper";
+import connect from "react-redux/es/connect/connect";
 
 function SensorLineChart(props) {
   const { valuesData } = props;
@@ -26,14 +27,14 @@ function SensorLineChart(props) {
         display: false,
         scaleLabel: {
           display: true,
-          labelString: 'Time sent'
+          labelString: props.locales["timesent"]
         }
       }],
       yAxes: [{
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Value'
+          labelString: props.locales["value"]
         }
       }]
     }
@@ -42,7 +43,7 @@ function SensorLineChart(props) {
   const data = {
     labels: timeSents,
     datasets: [{
-      label: 'Value',
+      label: props.locales["value"],
       data: values,
       fill: false,
       backgroundColor: "rgb(54, 162, 235)",
@@ -59,4 +60,8 @@ function SensorLineChart(props) {
 
 SensorLineChart.propTypes = {};
 
-export default SensorLineChart;
+const mapStateToProps = state => ({
+  locales: state.locales
+});
+
+export default connect(mapStateToProps)(SensorLineChart);

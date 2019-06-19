@@ -40,11 +40,25 @@ const sensorsMonitoringReducer = (state = [], action) => {
   }
 };
 
+const localesReducer = (state = null, action) => {
+  switch (action.type) {
+    case actions.locales.setLocales:
+      const localesObj = {};
+      for (let i = 0; i < action.locales.length; ++i) {
+        localesObj[action.locales[i].key] = action.locales[i].value;
+      }
+      return localesObj;
+    default:
+      return state;
+  }
+};
+
 const reducers = history => combineReducers({
   router: connectRouter(history),
   userState: userReducer,
   userSettingsState: userSettingsReducer,
-  sensorsMonitoring: sensorsMonitoringReducer
+  sensorsMonitoring: sensorsMonitoringReducer,
+  locales: localesReducer
 });
 
 export default reducers;

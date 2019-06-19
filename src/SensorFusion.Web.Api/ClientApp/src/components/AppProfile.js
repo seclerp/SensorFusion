@@ -74,7 +74,7 @@ const AppProfile = props => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList>
-                  <MenuItem component={Button} onClick={handleLogout}>Logout</MenuItem>
+                  <MenuItem component={Button} onClick={handleLogout}>{props.locales["logout"]}</MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>
@@ -89,7 +89,8 @@ AppProfile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  user: state.userState
+  user: state.userState,
+  locales: state.locales
 });
 
 export default connect(mapStateToProps)(withStyles(styles, {withTheme: true})(AppProfile));

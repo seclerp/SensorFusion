@@ -7,7 +7,6 @@ import {AppSettingsContext} from "../../contexts/AppSettingsContext";
 import {withSnackbar} from "notistack";
 import {connect} from "react-redux";
 import SensorMonitoringCard from "../SensorMonitoringCard";
-import {HubConnectionBuilder} from "@aspnet/signalr";
 import actionTypes from "../../store/actionTypes";
 
 const useStyles = makeStyles(theme => ({
@@ -48,7 +47,7 @@ const MonitoringPage = (props) => {
   useEffect(unloadSensors, [timeoutHandler]);
 
   return (
-    <AppBarDrawer title="Your sensors">
+    <AppBarDrawer title={props.locales["monitoring"]}>
       <AppPage isLoading={!dataLoaded}>
         <Container className={classes.root}>
           {sensorsDetailed && sensorsDetailed.map(sensor => <SensorMonitoringCard id={sensor.id} name={sensor.name} valuesData={sensor.lastValues}/>)}
@@ -62,7 +61,8 @@ MonitoringPage.propTypes = {};
 
 const mapStateToProps = state => ({
   user: state.userState,
-  sensors: state.sensorsMonitoring
+  sensors: state.sensorsMonitoring,
+  locales: state.locales
 });
 
 export default connect(mapStateToProps)(withSnackbar(MonitoringPage));

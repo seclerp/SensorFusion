@@ -87,7 +87,7 @@ const SensorsPage = (props) => {
   useEffect(unloadSensors, [timeoutHandler]);
 
   return (
-    <AppBarDrawer title="Your sensors">
+    <AppBarDrawer title={props.locales["yoursensor"]}>
       <AppPage isLoading={!dataLoaded}>
         <Container className={classes.root}>
           {sensors.map(sensor => <SensorCard id={sensor.id} name={sensor.name} value={sensor.lastValue}/>)}
@@ -96,16 +96,16 @@ const SensorsPage = (props) => {
           </Fab>
         </Container>
         <Dialog open={addSensorOpened} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Create a new sensor</DialogTitle>
+          <DialogTitle id="form-dialog-title">{props.locales["createsensor"]}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Select name for your sensor
+              {props.locales["selectname"]}
             </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Sensor's name"
+              label={props.locales["sensorsname"]}
               type="text"
               fullWidth
               value={newSensorName}
@@ -114,10 +114,10 @@ const SensorsPage = (props) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Cancel
+              {props.locales["cancel"]}
             </Button>
             <Button onClick={handleCreate} color="primary">
-              Create
+              {props.locales["create"]}
             </Button>
           </DialogActions>
         </Dialog>
@@ -129,7 +129,8 @@ const SensorsPage = (props) => {
 SensorsPage.propTypes = {};
 
 const mapStateToProps = state => ({
-  user: state.userState
+  user: state.userState,
+  locales: state.locales
 });
 
 export default connect(mapStateToProps)(withSnackbar(SensorsPage));

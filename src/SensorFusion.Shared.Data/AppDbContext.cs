@@ -8,6 +8,7 @@ namespace SensorFusion.Shared.Data
   {
     public DbSet<Sensor> Sensors { get; set; }
     public DbSet<SensorValue> SensorValues { get; set; }
+    public DbSet<Localization> Localizations { get; set; }
 
     public AppDbContext(DbContextOptions options) : base(options)
     {
@@ -19,6 +20,9 @@ namespace SensorFusion.Shared.Data
 
       modelBuilder.Entity<SensorValue>()
         .HasKey(o => new { o.SensorId, o.TimeSent });
+
+      modelBuilder.Entity<Localization>()
+        .HasKey(o => new { o.Key, o.Language });
     }
   }
 }

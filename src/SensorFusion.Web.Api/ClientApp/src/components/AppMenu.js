@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Chip from "@material-ui/core/Chip";
 import AppMenuSection from "./AppMenuSection";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 const useStyles = makeStyles(themes => ({
   menuItem: {
@@ -44,7 +45,7 @@ function AppMenu(props) {
             >
               {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
               {item.chips && item.chips.map(chip => <Chip className={classes.chip} label={chip} />)}
-              <ListItemText primary={item.title} />
+              <ListItemText primary={props.locales[item.title]} />
             </ListItem>
           </div>
         );
@@ -58,4 +59,9 @@ function AppMenu(props) {
   );
 }
 
-export default AppMenu;
+const mapStateToProps = state => ({
+  locales: state.locales
+});
+
+
+export default connect(mapStateToProps)(AppMenu);
