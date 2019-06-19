@@ -18,7 +18,6 @@ namespace SensorFusion.Web.Api.Filters
   {
     private readonly ILogger<SubscriptionsSetupFilter> _logger;
     private readonly IConnectionMultiplexer _redisConnection;
-    private readonly ISensorHistoryService _sensorHistoryService;
     private readonly ISensorIdsCacheWriteService _idsCacheWriteService;
     private readonly IMediator _mediator;
     private IServiceScope _scope;
@@ -33,7 +32,6 @@ namespace SensorFusion.Web.Api.Filters
       _redisConnection = redisConnection;
       _mediator = mediator;
       _scope = provider.CreateScope();
-      _sensorHistoryService = _scope.ServiceProvider.GetRequiredService<ISensorHistoryService>();
       _idsCacheWriteService = _scope.ServiceProvider.GetRequiredService<ISensorIdsCacheWriteService>();
     }
 
@@ -54,7 +52,8 @@ namespace SensorFusion.Web.Api.Filters
     private void NewValueHandler(RedisChannel channel, RedisValue value)
     {
       var dto = JsonConvert.DeserializeObject<NewSensorValueRedisEvent>(value.ToString());
-      _sensorHistoryService.AddValue(dto.SensorId, dto.Value, dto.TimeSent);
+      var historyService = _scope.ServiceProvider.GetRequiredService<ISensorHistoryService>();
+      historyService.AddValue(dto.SensorId, dto.Value, dto.TimeSent);
       _mediator.Publish(Map(dto));
       _logger.LogInformation($"Processed new value for sensor '{dto.SensorId}'");
     }

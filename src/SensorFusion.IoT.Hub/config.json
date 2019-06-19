@@ -14,7 +14,7 @@
   "emulationSettings": {
     "from": 0,
     "to": 1000,
-    "delayMs": 5000,
-    "delayRandomityMs": 5000
+    "delayMs": 1000,
+    "delayRandomityMs": 500
   }
 }
