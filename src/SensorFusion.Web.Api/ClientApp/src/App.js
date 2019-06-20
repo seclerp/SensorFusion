@@ -13,11 +13,12 @@ import {AppSettingsContext} from "./contexts/AppSettingsContext";
 import axios from "axios";
 import actionTypes from "./store/actionTypes";
 import HowToUsePage from "./components/pages/HowToUsePage";
+import SettingsPage from "./components/pages/SettingsPage";
 
 const App = props => {
   const appSettings = useContext(AppSettingsContext);
   
-  const language = "ua";
+  const language = localStorage.getItem("lang") || "en";
   
   useEffect(() => {
     axios
@@ -38,7 +39,7 @@ const App = props => {
         <PrivateRoute exact path="/sensors/:id" component={SensorEditPage}/>
         <PrivateRoute exact path="/monitoring" component={MonitoringPage}/>
         <PrivateRoute exact path="/monitoring/:id" component={SensorDetailsPage}/>
-        <PrivateRoute exact path="/settings" component={MonitoringPage}/>
+        <PrivateRoute exact path="/settings" component={SettingsPage}/>
         <PrivateRoute exact path="/how-to-use" component={HowToUsePage}/>
       </div>
     </Router>

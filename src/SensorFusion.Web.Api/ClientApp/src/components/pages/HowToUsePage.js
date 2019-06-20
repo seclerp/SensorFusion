@@ -30,7 +30,7 @@ const options = {
     h3: { component: props => <Typography gutterBottom variant="subtitle1" {...props} /> },
     h4: { component: props => <Typography gutterBottom variant="caption" paragraph {...props} /> },
     p: { component: props => <Typography paragraph {...props} /> },
-    a: { component: Link },
+    a: { component: props => <Link target="__blank" to={props.href} {...props}/> },
     li: {
       component: withStyles(legacyStyles)(({ classes, ...props }) => (
         <li className={classes.listItem}>
@@ -41,7 +41,7 @@ const options = {
   },
 };
 
-const MonitoringPage = (props) => {
+const HowToUsePage = (props) => {
   const classes = useStyles();
 
   return (
@@ -59,10 +59,10 @@ const MonitoringPage = (props) => {
   );
 };
 
-MonitoringPage.propTypes = {};
+HowToUsePage.propTypes = {};
 
 const mapStateToProps = state => ({
   locales: state.locales
 });
 
-export default connect(mapStateToProps)(withSnackbar(MonitoringPage));
+export default connect(mapStateToProps)(withSnackbar(HowToUsePage));

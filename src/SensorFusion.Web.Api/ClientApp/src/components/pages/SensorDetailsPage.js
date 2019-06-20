@@ -106,12 +106,12 @@ const SensorDetailsPage = (props) => {
               <Grid item xs={4}>
                 <Paper className={classes.paper2}>
                   <Typography variant="h6">
-                    Current value: <br/><b>{sensor.lastValues[0].value}</b>
+                    {props.locales["currentvalue"]}: <br/><b>{sensor.lastValues[0].value}</b>
                   </Typography>
                 </Paper>
                 <Paper className={classes.paper2}>
                   <Typography variant="body1">
-                    Values count: <b>{sensor.valuesCount}</b>
+                    {props.locales["valuescount"]}: <b>{sensor.valuesCount}</b>
                   </Typography>
                 </Paper>
               </Grid>
@@ -120,8 +120,8 @@ const SensorDetailsPage = (props) => {
                   <Table className={classes.table}>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Time sent</TableCell>
-                        <TableCell align="right">Value</TableCell>
+                        <TableCell>{props.locales["timesent"]}</TableCell>
+                        <TableCell align="right">{props.locales["value"]}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -139,7 +139,7 @@ const SensorDetailsPage = (props) => {
               </Grid>
             </Grid>
           ) : (
-            <Typography>There is no values for this sensor</Typography>
+            <Typography>{props.locales["novalues"]}</Typography>
           )}
         </Container>
       </AppPage>
@@ -150,7 +150,8 @@ const SensorDetailsPage = (props) => {
 SensorDetailsPage.propTypes = {};
 
 const mapStateToProps = state => ({
-  user: state.userState
+  user: state.userState,
+  locales: state.locales
 });
 
 export default connect(mapStateToProps)(withSnackbar(SensorDetailsPage));
