@@ -126,7 +126,7 @@ namespace SensorFusion.Web.Api
       }
 
       app.UseMiddleware<ErrorHandlingMiddleware>();
-      app.UseHttpsRedirection();
+      //app.UseHttpsRedirection();
       app.UseStaticFiles();
       app.UseSpaStaticFiles();
       app.UseAuthentication();

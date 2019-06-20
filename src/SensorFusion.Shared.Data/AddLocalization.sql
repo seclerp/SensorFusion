@@ -12,7 +12,7 @@ INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'logout'   
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'sensors'       ,'Sensors');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'monitoring'    ,'Monitoring');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'settings'      ,'Settings');
-INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'help'          ,'Help');
+INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'howtouse'      ,'How to use');
 
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'yoursensor'    ,'Your sensors');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'numeric'       ,'Numeric');
@@ -47,6 +47,8 @@ INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'deleted'  
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'loading'        ,'Loading');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'sensor'         ,'Sensor');
 
+INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('en', 'howtouseguide'  ,'how to use guide');
+
 # Ukrainian
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'signintitle'   ,'Увійти до Sensor Fusion');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'signin'        ,'Увійти');
@@ -60,7 +62,7 @@ INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'logout'   
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'sensors'       ,'Сенсори');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'monitoring'    ,'Моніторинг');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'settings'      ,'Налаштування');
-INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'help'          ,'Допомога');
+INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'howtouse'      ,'Як користуватись');
 
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'yoursensor'    ,'Ваші сенсори');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'numeric'       ,'Числовий');
@@ -94,3 +96,5 @@ INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'updated'  
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'deleted'        ,'Сенсор успішно видалено');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'loading'        ,'Завантаження');
 INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'sensor'         ,'Сенсор');
+
+INSERT INTO localizations (`Language`, `Key`, `Value`) VALUES ('ua', 'howtouseguide'  ,'how to use guide');

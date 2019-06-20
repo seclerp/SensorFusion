@@ -1,5 +1,5 @@
 export default {
-  apiRoot: "https://localhost:5003/api",
-  locales: "https://localhost:5003/api/staticdata/locales",
-  monitoringHub: "https://localhost:5003/monitoringHub",
+  apiRoot: "http://localhost:5002/api",
+  locales: "http://localhost:5002/api/staticdata/locales",
+  monitoringHub: "http://localhost:5002/monitoringHub",
 };

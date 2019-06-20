@@ -12,6 +12,7 @@ import SensorDetailsPage from "./components/pages/SensorDetailsPage";
 import {AppSettingsContext} from "./contexts/AppSettingsContext";
 import axios from "axios";
 import actionTypes from "./store/actionTypes";
+import HowToUsePage from "./components/pages/HowToUsePage";
 
 const App = props => {
   const appSettings = useContext(AppSettingsContext);
@@ -38,7 +39,7 @@ const App = props => {
         <PrivateRoute exact path="/monitoring" component={MonitoringPage}/>
         <PrivateRoute exact path="/monitoring/:id" component={SensorDetailsPage}/>
         <PrivateRoute exact path="/settings" component={MonitoringPage}/>
-        <PrivateRoute exact path="/help" component={MonitoringPage}/>
+        <PrivateRoute exact path="/how-to-use" component={HowToUsePage}/>
       </div>
     </Router>
   );

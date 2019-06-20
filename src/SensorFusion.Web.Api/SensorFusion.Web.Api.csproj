@@ -38,8 +38,6 @@
         <Content Include="ClientApp\src\services\DateHelper.js" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-        <None Include="ClientApp\src\components\pages\MonitoringPage.js" />
-        <None Include="ClientApp\src\components\SensorMonitoringCard.js" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

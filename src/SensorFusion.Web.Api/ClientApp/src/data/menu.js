@@ -9,5 +9,5 @@ export default [
   { type: "link", title: "sensors", url: "/sensors", icon: (<HomeIcon/>) },
   { type: "link", title: "monitoring", url: "/monitoring", icon: (<InsertChartOutlinedIcon/>) },
   { type: "link", title: "settings", url: "/settings", icon: (<SettingsIcon/>) },
-  { type: "link", title: "help", url: "/help", icon: (<HelpOutlinedIcon/>) },
+  { type: "link", title: "howtouse", url: "/how-to-use", icon: (<HelpOutlinedIcon/>) },
 ]
