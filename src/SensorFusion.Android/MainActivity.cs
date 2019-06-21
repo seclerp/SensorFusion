@@ -22,7 +22,7 @@ namespace SensorFusion.Android
       _webView.Settings.JavaScriptEnabled = true;
       _webView.Settings.DomStorageEnabled = true;
       _webView.SetWebViewClient(new NoOverrideWebViewClient());
-      _webView.LoadUrl ("http://bebf3df9.ngrok.io");
+      _webView.LoadUrl ("http://9b84fb4e.ngrok.io");
     }
 
     public override bool OnKeyDown (Keycode keyCode, KeyEvent e)

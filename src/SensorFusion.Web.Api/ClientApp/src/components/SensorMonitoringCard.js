@@ -31,9 +31,9 @@ const SensorMonitoringCard = props => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.card} >
+    <Paper className={classes.card}>
       <Grid container spacing={2}>
-        <Grid item xs={3}>
+        <Grid item md={3} zeroMinWidth>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {props.locales["numeric"]}
           </Typography>
@@ -51,7 +51,7 @@ const SensorMonitoringCard = props => {
             <Button component={Link} to={`/monitoring/${props.id}`} size="small">{props.locales["details"]}</Button>
           </Grid>
         </Grid>
-        <Grid item xs={8} className={classes.chartContainer}>
+        <Grid item md={8} className={classes.chartContainer}>
           { props.valuesData && <SensorLineChart valuesData={props.valuesData}/> }
         </Grid>
       </Grid>
