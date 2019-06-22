@@ -44,7 +44,7 @@ const SensorMonitoringCard = props => {
             {props.locales["enabled"]}
           </Typography>
           <Typography variant="body2" component="p">
-            {props.locales["currentvalue"]}: <b>{props.value ? props.value : props.locales["novalues"]}</b>
+            {props.locales["currentvalue"]}:<br/><b>{props.valuesData && props.valuesData.length > 0 ? props.valuesData[0].value : props.locales["novalues"]}</b>
           </Typography>
           <Grid container>
             <Button component={Link} to={`/sensors/${props.id}`} size="small">{props.locales["edit"]}</Button>

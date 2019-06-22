@@ -5,8 +5,9 @@ import connect from "react-redux/es/connect/connect";
 
 function SensorLineChart(props) {
   const { valuesData } = props;
-  const timeSents = valuesData.slice().reverse().map(valuesDataItem => DateHelper.format(valuesDataItem.valueSent));
-  const values = valuesData.slice().reverse().map(valuesDataItem => parseFloat(valuesDataItem.value));
+  const reversed = valuesData.slice().reverse();
+  const timeSents = reversed.map(valuesDataItem => DateHelper.format(valuesDataItem.valueSent));
+  const values = reversed.map(valuesDataItem => parseFloat(valuesDataItem.value));
   const options = {
     responsive: true,
     maintainAspectRatio: false,
