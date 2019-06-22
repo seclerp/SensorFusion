@@ -89,8 +89,8 @@ const SensorsPage = (props) => {
   return (
     <AppBarDrawer title={props.locales["yoursensor"]}>
       <AppPage isLoading={!dataLoaded}>
-        <Container className={classes.root}>
-          {sensors.map(sensor => <SensorCard id={sensor.id} name={sensor.name} value={sensor.lastValue}/>)}
+        <Container className={classes.root} maxWidth="xl">
+          {sensors.map(sensor => <SensorCard id={sensor.id} name={sensor.name} value={sensor.lastValue} onDeleted={loadSensors}/>)}
           <Fab color="primary" aria-label="Add" className={classes.addButton} onClick={handleClickOpen}>
             <AddIcon />
           </Fab>

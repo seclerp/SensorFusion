@@ -1,22 +1,24 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import React, {useContext} from 'react';
+import {CardHeader, makeStyles} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
+import EditIcon from "@material-ui/icons/Edit"
+import DeleteIcon from "@material-ui/icons/Delete"
+import IconButton from "@material-ui/core/IconButton";
+import axios from "axios";
+import {AppSettingsContext} from "../contexts/AppSettingsContext";
+import {withSnackbar} from "notistack";
 
 const useStyles = makeStyles(theme => ({
   card: {
     width: 275,
     margin: theme.spacing(2)
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+  cardHeader: {
+    paddingBottom: 0
   },
   title: {
     fontSize: 14,
@@ -28,33 +30,64 @@ const useStyles = makeStyles(theme => ({
 
 const SensorCard = props => {
   const classes = useStyles();
+  const appSettings = useContext(AppSettingsContext);
+  const {user, onDeleted} = props;
 
+  const handleDelete = () => {
+    axios
+      .delete(`${appSettings.apiRoot}/sensors/${props.id}`, {
+        headers: {
+          "Authorization": "Bearer " + user.token
+        }
+      })
+      .then(response => {
+        props.enqueueSnackbar("Sensor successfully deleted");
+        onDeleted();
+      })
+      .catch(error => props.enqueueSnackbar(error.toString(), {variant: "error"}));
+  };
+  
   return (
     <Card className={classes.card}>
+      <CardHeader
+        className={classes.cardHeader}
+        action={
+          <div>
+            <IconButton aria-label={props.locales["edit"]} component={Link} to={`/sensors/${props.id}`}>
+              <EditIcon />
+            </IconButton>
+            {/* TODO */}
+            <IconButton aria-label={props.locales["delete"]} onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        }
+        title={
+          <div>
+            <Typography variant="h5" component="h2" >
+              {props.name}
+            </Typography>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+              {props.locales["numeric"]}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              {props.locales["enabled"]}
+            </Typography>
+          </div>
+        }
+      />
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {props.locales["numeric"]}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {props.name}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {props.locales["enabled"]}
-        </Typography>
         <Typography variant="body2" component="p">
           {props.locales["currentvalue"]}: <b>{props.value ? props.value : props.locales["novalues"]}</b>
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button component={Link} to={`/sensors/${props.id}`} size="small">{props.locales["edit"]}</Button>
-        <Button component={Link} to={`/monitoring/${props.id}`} size="small">{props.locales["delete"]}</Button>
-      </CardActions>
     </Card>
   );
 };
 
 const mapStateToProps = state => ({
+  user: state.userState,
   locales: state.locales
 });
 
-export default connect(mapStateToProps)(SensorCard);
+export default connect(mapStateToProps)(withSnackbar(SensorCard));
