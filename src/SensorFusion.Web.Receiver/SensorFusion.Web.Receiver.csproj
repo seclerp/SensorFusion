@@ -7,6 +7,8 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+        <PackageReference Include="Socketize.Extensions.AspNetCore.Hosting" Version="0.1.0.1" />
+        <PackageReference Include="Socketize.Extensions.DependencyInjection" Version="0.1.0" />
         <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
     </ItemGroup>
 
@@ -14,7 +16,6 @@
       <ProjectReference Include="..\SensorFusion.Shared.Data\SensorFusion.Shared.Data.csproj" />
       <ProjectReference Include="..\SensorFusion.Shared\SensorFusion.Shared.csproj" />
       <ProjectReference Include="..\SensorFusion.Web.Infrastructure\SensorFusion.Web.Infrastructure.csproj" />
-      <ProjectReference Include="..\Socketize.Extensions.DependencyInjection\Socketize.Extensions.DependencyInjection.csproj" />
     </ItemGroup>
 
 </Project>

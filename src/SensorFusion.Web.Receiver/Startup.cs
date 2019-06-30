@@ -10,6 +10,7 @@ using SensorFusion.Web.Infrastructure.Services;
 using SensorFusion.Web.Infrastructure.Services.Abstractions;
 using SensorFusion.Web.Receiver.Handlers;
 using Socketize;
+using Socketize.Extensions.AspNetCore.Hosting;
 using Socketize.Extensions.DependencyInjection;
 using StackExchange.Redis;
 
@@ -34,7 +35,7 @@ namespace SensorFusion.Web.Receiver
       services.AddSocketizeServer(
         builder => builder.Hub("sensor").Route<SensorUpdateMessage, SensorHandler>("update").Complete(),
         new ServerOptions(60102, "SensorFusionTest")
-      );
+      ).AddSocketizeHosting();
       services.AddTransient<ISensorIdsCacheReadService, SensorIdsCacheReadService>();
     }
 

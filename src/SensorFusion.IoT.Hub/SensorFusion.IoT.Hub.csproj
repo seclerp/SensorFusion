@@ -9,11 +9,12 @@
       <PackageReference Include="Lidgren.Network" Version="1.0.2" />
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+      <PackageReference Include="Socketize.Extensions.DependencyInjection" Version="0.1.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\SensorFusion.Shared\SensorFusion.Shared.csproj" />
-      <ProjectReference Include="..\Socketize.Extensions.DependencyInjection\Socketize.Extensions.DependencyInjection.csproj" />
     </ItemGroup>
 
     <ItemGroup>
