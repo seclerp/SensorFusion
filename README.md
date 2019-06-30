@@ -1,5 +1,11 @@
-# :bar_chart: SensorFusion
+<h1 align="center">
+:bar_chart: SensorFusion
+</h1>
+<p align="center">
 Scalable and extendable sensor monitoring, analyzing and management solution
+</p>
+
+---
 
 ## Notes
 
