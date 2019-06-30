@@ -6,12 +6,11 @@ import * as serviceWorker from './serviceWorker';
 import App from './App';
 import { AppSettingsProvider } from './contexts/AppSettingsContext';
 import LocalSettings from "./env/local";
-import ProdSettings from "./env/prod";
 import {Provider as ReduxProvider} from "react-redux";
 import configureStore, { history } from "./store/configure"
 import {SnackbarProvider} from "notistack";
 
-const currentSettings = process.env.NODE_ENV === "production" ? ProdSettings : LocalSettings;
+const currentSettings = LocalSettings;
 
 const store = configureStore({});
 

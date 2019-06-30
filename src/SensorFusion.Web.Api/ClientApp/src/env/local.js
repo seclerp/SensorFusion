@@ -1,5 +1,5 @@
 export default {
-  apiRoot: "http://9b84fb4e.ngrok.io/api",
-  locales: "http://9b84fb4e.ngrok.io/api/staticdata/locales",
-  monitoringHub: "http://9b84fb4e.ngrok.io/monitoringHub",
+  apiRoot: "http://localhost:5002/api",
+  locales: "http://localhost:5002/api/staticdata/locales",
+  monitoringHub: "http://localhost:5002/monitoringHub",
 };

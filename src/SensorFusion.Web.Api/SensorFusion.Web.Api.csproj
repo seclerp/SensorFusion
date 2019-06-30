@@ -10,7 +10,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
@@ -18,7 +17,6 @@
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
@@ -70,6 +68,10 @@
       <ProjectReference Include="..\SensorFusion.Shared.Data\SensorFusion.Shared.Data.csproj" />
       <ProjectReference Include="..\SensorFusion.Shared\SensorFusion.Shared.csproj" />
       <ProjectReference Include="..\SensorFusion.Web.Infrastructure\SensorFusion.Web.Infrastructure.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Events" />
     </ItemGroup>
 
 </Project>

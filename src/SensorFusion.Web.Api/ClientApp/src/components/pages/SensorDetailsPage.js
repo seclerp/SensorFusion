@@ -64,36 +64,6 @@ const SensorDetailsPage = (props) => {
   useEffect(loadSensor, []);
   useEffect(unloadSensors, [timeoutHandler]);
 
-  const saveChanges = () => {
-    axios
-      .put(`${appSettings.apiRoot}/sensors/rename`, {
-        id: sensor.id,
-        name: sensor.name
-      }, {
-        headers: {
-          "Authorization": "Bearer " + user.token
-        }
-      })
-      .then(response => {
-        props.enqueueSnackbar("Sensor successfully updated")
-      })
-      .catch(error => props.enqueueSnackbar(error.response.data.error, {variant: "error"}));
-  };
-
-  const deleteSensor = () => {
-    axios
-      .delete(`${appSettings.apiRoot}/sensors/${sensor.id}`, {
-        headers: {
-          "Authorization": "Bearer " + user.token
-        }
-      })
-      .then(response => {
-        props.enqueueSnackbar("Sensor successfully deleted");
-        props.history.push("/sensors");
-      })
-      .catch(error => props.enqueueSnackbar(error.response.data.error, {variant: "error"}));
-  };
-
   return (
     <AppBarDrawer title={sensor !== null ? `Sensor '${sensor.name}'` : `Loading sensor ${params.id}...`}>
       <AppPage isLoading={!dataLoaded}>
