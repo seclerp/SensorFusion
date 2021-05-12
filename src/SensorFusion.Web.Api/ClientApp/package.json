@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.0.0",
     "@material-ui/styles": "^4.0.0",
     "axios": "^0.21.1",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.6.0",
     "connected-react-router": "^6.4.0",
     "markdown-to-jsx": "^6.10.2",
